@@ -1,0 +1,33 @@
+html
+	head
+		title= title
+		script(src='/js/jquery-1.11.2.min.js')
+		link(rel='stylesheet', href='/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='/stylesheets/styledrag.css')
+		link(rel='stylesheet', href='/stylesheets/dragdrop.css')
+		script(src='/js/bootstrap.min.js')
+		script(src='/js/jquery.validate.min.js')
+		script(src='/js/jquery.form.min.js')
+	body
+		nav.navbar.navbar-inverse
+			.container-fluid
+					.navbar-header
+						a.navbar-brand(href='/',style="padding: 0")
+							img(alt='Brand', src='/images/logo.png' style="width: 50px")
+					ul.nav.navbar-nav.navbar-right#menu-head
+						li.avatar_hear.img-circle
+							if user.avatar == null
+								label=user.firstname
+							else
+								img.size-image(alt='Brand', src='/uploads/images/#{user.avatar}' style="width:50px; height:50px;")
+						li.dropdown
+							a.dropdown-toggle#menu-info(href='#', data-toggle='dropdown', role='button', aria-expanded='false')=user.firstname+" "+user.lastname
+								span.caret     
+							ul.dropdown-menu(role='menu')
+								li
+									a(href='/#{user.username}') Profile            
+								li
+									a(href='/logout') Logout
+	block content
+	block script

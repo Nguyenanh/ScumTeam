@@ -1,0 +1,217 @@
+extends ../menu
+block content
+  .container-fluid.project-run
+    .row
+      if user._id == project.master
+        label.run-title-project( data-toggle="modal" data-target="#rename-project")=project.title
+        #rename-project.modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+              .modal-dialog.modal-sm
+                  .modal-content
+                    .modal-header
+                      button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') &times;      
+                      h4#myModalLabel.modal-title Rename Project  
+                    .modal-body.new-content-project
+                      .container-fluid
+                        .row
+                          .col-md-12
+                            .form-group
+                              label.control-label Title
+                              input.form-control(type="text" name="title" placeholder="Title" value="#{project.title}")
+                    .modal-footer 
+                      button.btn.btn-primary#save-new-project(type='button') Rename
+      else
+        label.run-title-project=project.title
+      input(type="hidden" name="project_id" value="#{project._id}")
+      a#trig.btn.btn-warning.pull-right.glyphicon.glyphicon-backward
+  .container-fluid 
+    #center-wrapper
+      .dhe-example-section#ex-1-3
+        .dhe-example-section-content
+          #example-1-3
+            .column.left.first#todo
+              span TODO
+                  a.img-circle.glyphicon.glyphicon-plus.pull-right#new-note( data-toggle="modal" data-target="#new-note-form")
+                  #new-note-form.modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                    .modal-dialog.modal-sm
+                      .modal-content
+                        .modal-header
+                          button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') &times;  
+                          h4#myModalLabel.modal-title New Note 
+                        .modal-body
+                          .container-fluid
+                            .row
+                              .col-md-12#note-content
+                                textarea.form-control(rows='3')
+                                br
+                                select#note-rate.form-control
+                                  option(value='1') Easy
+                                  option(value='2') Average
+                                  option(value='3') Normal
+                                  option(value='4') Difficult
+                                  option(value='5') Very Difficult
+                                br
+                                input.form-control(type='number', name='estimate', min='0', max='100')
+                                br
+                                a#save-note.btn.btn-primary(type='button') Save
+
+
+
+                  input(type="hidden" name="idproject" value="#{project._id}")
+              .scroll
+                ul.sortable-list.column-first(data-column = 1)
+                  -for(var i =0; i<noteFs.length; i++)
+                    li.sortable-item(data-id = "#{noteFs[i]._id}")
+                      label.dropdown.pull-right
+                        a.edit-note.dropdown.dropdown-toggle.glyphicon.glyphicon-cog(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                        ul.dropdown-menu(role="menu")
+                          li
+                            a(href="#") Edit
+                              i.glyphicon.glyphicon-pencil
+                          li
+                            a.note-remove(href="#") Remove
+                              i.glyphicon.glyphicon-trash
+                          li
+                            a(href="#") Status
+                              i.glyphicon.glyphicon-refresh
+                      p=noteFs[i].content
+                      -for(var j =1; j<=noteFs[i].rate; j++)
+                        i.glyphicon.glyphicon-star
+                      -for(var k =1; k<=6-noteFs[i].rate; k++)
+                        i.glyphicon.glyphicon-star-empty
+                      &#32;
+                      if noteFs[i].estimate == ""
+                        label 0
+                      else
+                        label=noteFs[i].estimate
+                      i.glyphicon.glyphicon-time
+            .column.left
+              span PROCESSING
+              .scroll
+                ul.sortable-list.column-second(data-column = 2)
+                  -for(var i =0; i<noteSs.length; i++)
+                    li.sortable-item(data-id = "#{noteSs[i]._id}")
+                      label.dropdown.pull-right
+                        a.edit-note.dropdown.dropdown-toggle.glyphicon.glyphicon-cog(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                        ul.dropdown-menu(role="menu")
+                          li
+                            a(href="#") Edit
+                              i.glyphicon.glyphicon-pencil
+                          li
+                            a.note-remove(href="#") Remove
+                              i.glyphicon.glyphicon-trash
+                          li
+                            a(href="#") Status
+                              i.glyphicon.glyphicon-refresh
+                      p=noteSs[i].content
+                      -for(var j =1; j<=noteSs[i].rate; j++)
+                        i.glyphicon.glyphicon-star
+                      -for(var k =1; k<=6-noteSs[i].rate; k++)
+                        i.glyphicon.glyphicon-star-empty
+                      &#32;
+                      if noteSs[i].estimate == ""
+                        label 0
+                      else
+                        label=noteSs[i].estimate
+                      i.glyphicon.glyphicon-time
+            .column.left
+              span TEST
+              .scroll
+                ul.sortable-list.column-third(data-column = 3)
+                  -for(var i =0; i<noteTs.length; i++)
+                    li.sortable-item(data-id = "#{noteTs[i]._id}")
+                      label.dropdown.pull-right
+                        a.edit-note.dropdown.dropdown-toggle.glyphicon.glyphicon-cog(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                        ul.dropdown-menu(role="menu")
+                          li
+                            a(href="#") Edit
+                              i.glyphicon.glyphicon-pencil
+                          li
+                            a.note-remove(href="#") Remove
+                              i.glyphicon.glyphicon-trash
+                          li
+                            a(href="#") Status
+                              i.glyphicon.glyphicon-refresh
+                      p=noteTs[i].content
+                      -for(var j =1; j<=noteTs[i].rate; j++)
+                        i.glyphicon.glyphicon-star
+                      -for(var k =1; k<=6-noteTs[i].rate; k++)
+                        i.glyphicon.glyphicon-star-empty
+                      &#32;
+                      if noteTs[i].estimate == ""
+                        label 0
+                      else
+                        label=noteTs[i].estimate
+                      i.glyphicon.glyphicon-time
+            .column.left
+              span DONE
+              .scroll
+                ul.sortable-list.column-four(data-column = 4)
+                  -for(var i =0; i<noteFos.length; i++)
+                    li.sortable-item(data-id = "#{noteFos[i]._id}")
+                      label.dropdown.pull-right
+                        a.edit-note.dropdown.dropdown-toggle.glyphicon.glyphicon-cog(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                        ul.dropdown-menu(role="menu")
+                          li
+                            a(href="#") Edit
+                              i.glyphicon.glyphicon-pencil
+                          li
+                            a.note-remove(href="#") Remove
+                              i.glyphicon.glyphicon-trash
+                          li
+                            a(href="#") Status
+                              i.glyphicon.glyphicon-refresh
+                      p=noteFos[i].content
+                      -for(var j =1; j<=noteFos[i].rate; j++)
+                        i.glyphicon.glyphicon-star
+                      -for(var k =1; k<=6-noteFos[i].rate; k++)
+                        i.glyphicon.glyphicon-star-empty
+                      &#32;
+                      if noteFos[i].estimate == ""
+                        label 0
+                      else
+                        label=noteFos[i].estimate
+                      i.glyphicon.glyphicon-time
+  #remove-note-form.modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog.modal-sm
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;  
+          h4.modal-title Remove Note
+        .modal-body
+          .container-fluid
+            .row
+              .col-md-12.text-center
+                a#save-remove-note.glyphicon.glyphicon-trash(href="#" type='button')
+
+  .container-fluid
+    .row
+      .col-offset-md-12.pull-right
+        .PDO
+          .panel.panel-default
+            .panel-heading PDO
+            .panel-body dhjk
+  #sidebar
+    .container-fluid
+      .row
+        .col-md-12
+          .panel.panel-default
+            .panel-heading Members
+            .panel-body
+              img.size-image.img-circle(alt='Brand', src='/uploads/images/#{user.avatar}' style="width:40px; height:40px;")
+              .input-group
+                input.form-control#autocomplete(type="text")
+                span.input-group-btn
+                  button.btn.btn-default(type="submit") Add
+
+block script
+  //- script(src='/js/jquery.js')
+  //- script(src='/js/jquery-ui-1.8.custom.min.js')
+  //- script(src='/js/jquery-sortable-min.js')
+  script(src='/js/jquery-ui.js')
+  script(src='/javascripts/dragdrop_profile.js')
+  script(src='/javascripts/ajax_note.js')
+  script(src='/javascripts/toggle_sidebar.js')
+  script(src='/javascripts/autocomplete.js')

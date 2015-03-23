@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  .body
+    .container
+      .row.top
+        if errors != "" 
+          .alert.alert-warning.notice(role='errors')
+            button.close(type='button', data-dismiss='alert', aria-label='Close')
+                span(aria-hidden='true') &times; 
+            strong=errors
+        .col-sm-6.header
+            | Scrum
+            span Team
+        .col-sm-6.loginform
+          form.form-horizontal#login_validate(method="post")
+            .form-group
+              .col-sm-6
+                input#inputusername.form-control(type='username', placeholder='Username', name="username")
+            .form-group
+                .col-sm-6
+                  input#inputPassword3.form-control(type='password', placeholder='Password', name="password")
+            .form-group
+              .col-sm-2
+                button.btn.btn-success(type='submit') Sign in
+              .col-sm-6
+                a.btn.btn-primary(href="/register") Sign up
+block scripts
+  script(src='/javascripts/login_validate.js')
+
+

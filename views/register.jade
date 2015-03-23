@@ -1,0 +1,55 @@
+extends layout
+
+block content
+  .body
+    .container
+      .row
+        .col-xs-12.col-sm-8.col-md-6.col-sm-offset-2.col-md-offset-3
+          form(role='form', method="post" id="form-register")
+            h2
+              | Please Sign Up 
+              small It&apos;s free and always will be.
+              | &#x9;&#x9;&#x9;
+              hr.colorgraph
+              | &#x9;&#x9;&#x9;
+              .row
+                .col-sm-12
+                if messages != ""
+                  .alert.alert-success.notice(role='messages')
+                    button.close(type='button', data-dismiss='alert', aria-label='Close')
+                        span(aria-hidden='true') &times; 
+                    strong=messages
+                if errors != ""
+                  .alert.alert-warning.notice(role='errors')
+                    button.close(type='button', data-dismiss='alert', aria-label='Close')
+                        span(aria-hidden='true') &times; 
+                    strong=errors
+                .col-xs-12.col-sm-6.col-md-6
+                  .form-group
+                    input#first_name.transparent.form-control.input-lg(type='text', name='first_name', placeholder='First Name', tabindex='1' value="#{user.firstname}")
+                | &#x9;&#x9;&#x9;&#x9;
+                .col-xs-12.col-sm-6.col-md-6
+                  .form-group
+                    input#last_name.transparent.form-control.input-lg(type='text', name='last_name', placeholder='Last Name', tabindex='2' value="#{user.lastname}")
+              | &#x9;&#x9;&#x9;
+              .form-group
+                  input#username.transparent.form-control.input-lg(type='text', name='username', placeholder='User Name', tabindex='3')
+              | &#x9;&#x9;&#x9;
+              .form-group
+                  input#email.transparent.form-control.input-lg(type='email', name='email', placeholder='Email Address', tabindex='4' value="#{user.email}")
+              | &#x9;&#x9;&#x9;
+              .row
+                .col-xs-12.col-sm-6.col-md-6
+                  .form-group
+                    input#password.transparent.form-control.input-lg(type='password', name='password', placeholder='Password', tabindex='5')
+                | &#x9;&#x9;&#x9;&#x9;
+                .col-xs-12.col-sm-6.col-md-6
+                  .form-group
+                    input#password_confirmation.transparent.form-control.input-lg(type='password', name='password_confirmation', placeholder='Confirm Password', tabindex='6')
+              | &#x9;&#x9;&#x9;
+              .row
+                .col-xs-12.col-md-6
+                  input.btn.btn-primary.btn-block.btn-lg(type='submit', value='Sign Up', tabindex='7')
+block scripts
+  script(src='/javascripts/register_validate.js')
+

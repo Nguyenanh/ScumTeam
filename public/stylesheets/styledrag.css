@@ -1,0 +1,100 @@
+/*
+	Stylesheet for examples by DevHeart.
+	http://devheart.org/
+
+	Article title:	jQuery: Customizable layout using drag n drop
+	Article URI:	http://devheart.org/articles/jquery-customizable-layout-using-drag-and-drop/
+
+	Example title:	1. Getting started with sortable lists
+	Example URI:	http://devheart.org/examples/jquery-customizable-layout-using-drag-and-drop/1-getting-started-with-sortable-lists/index.html
+*/
+
+/*
+	Alignment
+------------------------------------------------------------------- */
+
+/* Floats */
+
+.left {float: left;}
+.right {float: right;}
+
+.clear,.clearer {clear: both;}
+.clearer {
+	display: block;
+	font-size: 0;
+	height: 0;
+	line-height: 0;
+}
+
+
+/*
+	Example specifics
+------------------------------------------------------------------- */
+
+/* Layout */
+
+#center-wrapper {
+	margin: 0 auto;
+	width: 100%;
+}
+
+
+/* Columns */
+
+.column {
+	margin-left: 2%;
+	width: 23%;
+}
+.column.first {margin-left: 0;}
+
+
+/* Sortable items */
+
+.sortable-list {
+  background-color: #E3E3E3;
+  border-radius: 3px;
+	list-style: none;
+	margin: 0;
+	min-height: 60px;
+	padding: 10px;
+}
+.column.left span {
+	font-weight: bold;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: center;
+  display: block;
+  margin-bottom: 10px;
+}
+.sortable-item {
+	border-radius: 3px;
+  background-color: #FFF;
+  border-bottom: 1px solid #CCC;
+	cursor: move;
+	display: block;
+	margin-bottom: 5px;
+	padding: 5px 10px;
+	height: 60px!important;
+  font: 14px/18px "Helvetica Neue",Arial,Helvetica,sans-serif;
+
+}
+.sortable-item:hover {
+	background-color: #F0F0F0;
+}
+
+/* Containment area */
+
+#containment {
+	background-color: #FFA;
+	height: 230px;
+}
+
+
+/* Item placeholder (visual helper) */
+
+.placeholder {
+	background-color: #BFB;
+	border: 1px dashed #666;
+	height: 58px;
+	margin-bottom: 5px;
+}
