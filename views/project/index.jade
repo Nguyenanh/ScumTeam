@@ -199,10 +199,13 @@ block content
         .col-md-12
           .panel.panel-default
             .panel-heading Members
-            .panel-body
-              img.size-image.img-circle(alt='Brand', src='/uploads/images/#{user.avatar}' style="width:40px; height:40px;")
+            .panel-body#avatar_join
+              li(data-join="#{user._id}")
+                img.size-image.img-circle(alt='Brand', src='/uploads/images/#{user.avatar}' style="width:40px; height:40px;" )
               .input-group
                 input.form-control#autocomplete(type="text")
+                input#user_id(type="hidden" name="user_id")
+                p#user_username
                 span.input-group-btn
                   button.btn.btn-default(type="submit") Add
 

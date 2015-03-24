@@ -321,3 +321,32 @@ to {
 .toggle-sidebar {
     display: block!important;
 }
+.ui-autocomplete {
+    background: #fff;
+    padding: 0px!important;
+    width: 188px!important;
+    border: 1px solid #E3E3E3;
+    display: inline-block;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.ui-autocomplete li {
+    border-radius: 3px;
+    padding: 5px 0px;
+    list-style: none;
+    margin-left: 5px!important;
+    margin-right: 5px!important;
+}
+.ui-autocomplete li:hover {
+    background: #337ab7;
+    color: #fff;
+}
+.ui-autocomplete li:hover a{
+    color: #fff;
+}
+.ui-autocomplete li a {
+    padding-left: 15px!important;
+    text-decoration: none;
+    cursor: pointer;
+    padding-right: 15px!important;
+}
