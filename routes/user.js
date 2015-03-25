@@ -111,13 +111,17 @@ module.exports = function(app){
 	});
 	/******************Search User Ajax *************/
 	app.post('/user/ajax_search', function(req, res){
-		// console.log("asasa");
-		// console.log(req.body.username);
 		var username = String(req.body.username);
-		console.log(username);
-		US.searchAllUsers(username, function(errUsers, resUsers){
-			console.log(resUsers);
+		var user_added = req.body.list_user;
+		US.searchAllUsers(username, user_added, function(errUsers, resUsers){
 			res.send(resUsers);
+		});
+	});
+	/*****************Add user in project Ajax******/
+	app.post('/user/ajax_add_user', function(req, res){
+		var user_id = req.body.user_id;
+		US.getUser(user_id, function(errUser, resUser){
+			res.send(resUser);
 		});
 	});
 }

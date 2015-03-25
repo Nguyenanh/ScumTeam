@@ -1,0 +1,11 @@
+html
+  head
+    title= "Real time web chat"
+    script(src='/js/jquery-1.11.2.min.js')
+    script(src='/javascripts/chat.js')
+    script(src='/js/socket.io-1.3.4.js')
+  body
+    #content(style='width: 500px; height: 300px; margin: 0 0 20px 0; border: solid 1px #999; overflow-y: scroll;')
+    .controls
+      input.field(style='width:350px;')
+      input.send(type='button', value='send')

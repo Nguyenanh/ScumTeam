@@ -66,8 +66,8 @@ exports.updateUser = function(user_id, document, callback) {
 		}
 	});
 };
-exports.searchAllUsers = function(name, callback){
-	users.find({username: new RegExp(name)})
+exports.searchAllUsers = function(name, user_added, callback){
+	users.find({username: new RegExp(name), username: {$nin: user_added}})
 	.toArray(
 	function(e, res) {
 	if (e) callback(e)

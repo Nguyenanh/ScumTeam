@@ -1,34 +1,15 @@
-var projects = [
-      {
-        value: "jquery",
-        label: "jQuery",
-        desc: "the write less, do more, JavaScript library",
-        icon: "jquery_32x32.png"
-      },
-      {
-        value: "jquery-ui",
-        label: "jQuery UI",
-        desc: "the official user interface library for jQuery",
-        icon: "jqueryui_32x32.png"
-      },
-      {
-        value: "sizzlejs",
-        label: "Sizzle JS",
-        desc: "a pure-JavaScript CSS selector engine",
-        icon: "sizzlejs_32x32.png"
-      }
-    ];
 $("#autocomplete").autocomplete({
-  // source: projects,
   source: function(request, response){
+    var list_user = [];
+    $('#avatar_join li').each(function( index ) {
+      list_user.push($( this ).data('join'));
+    });
     var name = $('#autocomplete').val();
     $.ajax({
       type: "POST",
       url: "http://localhost:3000/user/ajax_search",
-      data: {username: name},
+      data: {username: name, list_user: list_user},
       success: function (msg) {
-        // console.log(JSON.stringify(msg));
-        // response(JSON.stringify(msg));
         response(msg);
       },
       error: function (msg) {
@@ -37,13 +18,12 @@ $("#autocomplete").autocomplete({
     });
    },
   focus: function( event, ui ) {
-    $( "#autocomplete" ).val( ui.item.username  );
+    $("#autocomplete").val(ui.item.username);
+    $("#user_id").val(ui.item._id);
     return false;
   },
   select: function( event, ui ) {
     $( "#autocomplete" ).val( ui.item.username );
-    $( "#user_id" ).val( ui.item._id  );
-    $( "#user_username" ).html( ui.item.desc );
     return false;
   }
 })
@@ -52,3 +32,19 @@ $("#autocomplete").autocomplete({
         .append("<a>"+item.firstname+"("+item.username+")</a>" )
         .appendTo(ul);
     };
+/************Add user in projec************/
+$('#add_user_project').click(function(){
+  var user_id = $(this).closest('#form-autocomplete').find('#user_id').val();
+  $.ajax({
+    type : "POST",
+    data : {user_id: user_id},
+    url : 'http://localhost:3000/user/ajax_add_user',
+    success : function(data) {
+      $('#autocomplete').val('');
+      if(data.avatar != null)
+        $('#avatar_join').append('<li class="img-circle avatar_hear" data-join='+data.username+'><img class="size-image" src="/uploads/images/'+data.avatar+'"/></li>');
+      else
+        $('#avatar_join').append('<li class="img-circle avatar_hear" data-join='+data.username+'><label>'+data.firstname+'</label></li>');
+    }
+  });
+});

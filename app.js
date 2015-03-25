@@ -14,7 +14,6 @@ var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 var session = require('express-session');
 
-
 var app = express();
 var done = false;
 app.configure(function () {
@@ -73,7 +72,13 @@ if (app.get('env') === 'development') {
     });
 }
 var server = http.createServer(app);
-
+var io = require('socket.io')(server);
+io.sockets.on('connection', function (socket) {
+  require('./socket/chat')(io,socket);
+});
+app.get('/chat', function(req, res){
+  res.render('chat');
+});
 app.post('/uploadphoto',function(req, res){
   console.log(done);
   if(done==true){
@@ -94,7 +99,6 @@ app.post('/uploadphoto',function(req, res){
     
   }
 });
-
 require('./routes/login')(app);
 require('./routes/register')(app);
 require('./routes/user')(app);

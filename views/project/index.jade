@@ -199,20 +199,21 @@ block content
         .col-md-12
           .panel.panel-default
             .panel-heading Members
-            .panel-body#avatar_join
-              li(data-join="#{user._id}")
-                img.size-image.img-circle(alt='Brand', src='/uploads/images/#{user.avatar}' style="width:40px; height:40px;" )
-              .input-group
+            .panel-body
+              #avatar_join
+                li.avatar_hear.img-circle(data-join="#{user.username}")
+                  if user.avatar != null
+                    img.size-image(alt='Brand', src='/uploads/images/#{user.avatar}' style="width:50px; height:50px;" )
+                  else
+                    label=user.firstname
+              .input-group#form-autocomplete
                 input.form-control#autocomplete(type="text")
                 input#user_id(type="hidden" name="user_id")
-                p#user_username
+                input#project_id(type="hidden" name="user_id")
                 span.input-group-btn
-                  button.btn.btn-default(type="submit") Add
+                  button.btn.btn-default#add_user_project(type="submit") Add
 
 block script
-  //- script(src='/js/jquery.js')
-  //- script(src='/js/jquery-ui-1.8.custom.min.js')
-  //- script(src='/js/jquery-sortable-min.js')
   script(src='/js/jquery-ui.js')
   script(src='/javascripts/dragdrop_profile.js')
   script(src='/javascripts/ajax_note.js')
