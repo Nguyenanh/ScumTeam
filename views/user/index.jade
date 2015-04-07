@@ -27,23 +27,26 @@ block content
                           .form-group#datetime
                             label.control-label Time Deadline
                             input.form-control(type='date' name="date")
-                            input(type="hidden" name="id" value="#{user._id}")
+                            input(type="hidden" name="master" value="#{user.firstname}")
+                            input(type="hidden" name="master_id" value="#{user._id}")
                   .modal-footer 
                     button.btn.btn-primary#save-new-project(type='button') Save changes
     .row.list-project
       -for(var i =0; i<projects.length; i++)
         .col-md-3
-          if projects[i].master == user._id
-            a.back-ground-red(href="/project/#{projects[i]._id}" data-toggle="tooltip" title="#{projects[i].master_name}")
+          if projects[i].master_id == user._id
+            a.back-ground-red(href="/project/#{projects[i]._id}" data-toggle="tooltip" title="#{projects[i].master}")
               span=projects[i].title
               label.status-project.img-circle=projects[i].status
           else
-            a.back-ground-blue(href="/project/#{projects[i]._id}" data-toggle="tooltip" title="#{projects[i].master_name}")
+            a.back-ground-blue(href="/project/#{projects[i]._id}" data-toggle="tooltip" title="#{projects[i].master}")
               span=projects[i].title
               label.status-project.img-circle=projects[i].status
   #message
 block script
-  script(src='/javascripts/tooltips.js')
-  script(src='/javascripts/ajax_project.js')
-  script(src='/javascripts/close_alert.js')
-  script(src='/javascripts/notice.js')
+  script(src='/javascripts/controller/project_controller.js')
+  script(src='/javascripts/controller/socket_controller.js')
+  script(src='/javascripts/controller/alert_controller.js')
+  script(src='/javascripts/controller/tooltip_controller.js') 
+  script(src='/javascripts/view/project_view.js')
+  script(src='/js/socket.io-1.3.4.js')

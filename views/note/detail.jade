@@ -1,0 +1,24 @@
+.modal.fade.bs-example-modal-lg#note-detail-popup(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+    .modal-dialog.modal-lg
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;       
+            h4.modal-title
+            span.point.label.label-primary
+            span.estimate.label.label-info
+          .modal-body
+            .row
+              .col-md-10
+                input(type="hidden" name="note_id_popup")
+                h4 Comment
+                .form-group#form_comment
+                  input.form-control(type="text" name="comment" placeholder="Write something")
+                button.btn.btn-success#add-new-comment Comment
+                #list-comment
+              .col-md-2
+                h4 Action
+                a.col-md-12.btn.btn-primary Remove Note
+                a.col-md-12.btn.btn-primary Change Title
+                a.col-md-12.btn.btn-primary Status
+                a.col-md-12.btn.btn-primary Edit

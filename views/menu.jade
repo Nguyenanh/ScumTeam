@@ -1,7 +1,8 @@
 html
 	head
-		title= title
+		title= title 
 		script(src='/js/jquery-1.11.2.min.js')
+		script(src='/javascripts/view/brower_view.js')
 		link(rel='stylesheet', href='/css/bootstrap.min.css')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		link(rel='stylesheet', href='/stylesheets/styledrag.css')
@@ -10,6 +11,9 @@ html
 		script(src='/js/jquery.validate.min.js')
 		script(src='/js/jquery.form.min.js')
 	body
+		input(type="hidden" name="socket_user_id" value="#{user._id}")
+		input(type="hidden" name="socket_user_avatar" value="#{user.avatar}")
+		input(type="hidden" name="socket_user_username" value="#{user.username}")
 		nav.navbar.navbar-inverse
 			.container-fluid
 					.navbar-header

@@ -1,0 +1,56 @@
+.container.user-profile
+  .row
+    .col-md-4
+      .avatar.after-upload
+        img.img-responsive(src='/uploads/images/#{UserProfile.avatar}' style="width:250px; height:250px;") 
+        .choose_file
+          span Choose File
+            form#uploadForm(enctype= 'multipart/form-data' action ='/uploadphoto' method ='post')
+                input(type="file" name="userPhoto" multiple)
+    .col-md-8
+      .alert.alert-info#description
+        h1
+          label Description
+          a.btn.btn-warning#update-profile-des Edit
+        p=UserProfile.description
+  br
+  .row
+    div(role="tabpanel")
+      ul.nav.nav-tabs(role="tablist")
+        li.active(role="presentation")
+          a(href="#activity" aria-controls="activity" role="tab" data-toggle="tab") Activity
+        li(role="presentation")
+          a(href="#profile" aria-controls="profile" role="tab" data-toggle="tab") Profile
+      .tab-content
+        .tab-pane.active#activity(role="tabpanel")
+        .tab-pane#profile(role="tabpanel")
+          .row
+            .col-md-6
+              form(role='form', method="post" id="form-register")
+                label UserName
+                input.form-control(type="text", name="username" value="#{UserProfile.username}", disabled) 
+                br            
+                label First Name                
+                input.form-control(type='text', name="firstname" value="#{UserProfile.firstname}") 
+                br            
+                label Last Name                  
+                input.form-control(type='text', name="lastname" value="#{UserProfile.lastname}") 
+                br            
+                label Registered Email                 
+                input.form-control(type='text',disabled value="#{UserProfile.email}")
+                input.form-control(type='hidden', name="id" disabled value="#{UserProfile._id}")                
+                br                
+                a.btn.btn-success#update-profile-detail Update Details  
+            .col-md-6
+              form(role='form', method="post" id="form-change-password")                                     
+                label Enter Old Password                     
+                input.form-control(type='password' name="oldpassword")  
+                br                    
+                label Enter New Password                       
+                input.form-control(type='password' id="newpassword" name="newpassword") 
+                br                      
+                label Confirm New Password                     
+                input.form-control(type='password' name="cfnewpassword")                       
+                br 
+                input.form-control(type='hidden', name="id" disabled value="#{UserProfile._id}")              
+                input.btn.btn-warning(type='submit', value='Change Password')

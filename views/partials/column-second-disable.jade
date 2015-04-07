@@ -1,0 +1,13 @@
+li.sortable-item.unsortable#note_detail(data-id = "#{noteSs[i]._id}" data-owner="#{noteSs[i].owner}")
+  p=noteSs[i].content
+  label=noteSs[i].rate
+    | Point-
+  if noteSs[i].estimate == ""
+    label 0
+  else
+    label=noteSs[i].estimate
+  i.glyphicon.glyphicon-time
+  if noteSs[i].assign == "t"
+    p#assign
+      img.img-circle(src='/uploads/images/#{noteSs[i].user.avatar}' style="width:20px; height:20px;")
+      label=noteSs[i].user.username

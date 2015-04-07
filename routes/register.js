@@ -6,7 +6,7 @@ var user = {
 	username : "",
 	email : "",
 }
-module.exports = function(app ) {
+module.exports = function(app) {
 	app.get('/register',function(req, res) {
 		US.getAllUsers(function(errUsers,resUsers) {
 			var user = {
@@ -32,6 +32,8 @@ module.exports = function(app ) {
 			username : req.param('username'),
 			email : req.param('email'),
 			password : req.param('password'),
+			avatar : "default.jpg",
+			project_ids :[]
 		}
 		US.checkAlreadyUser(req.param('username'), function(errItem, resItem){
 			if(resItem == null){

@@ -12,15 +12,34 @@ exports.insertProject = function(document, callback){
   });
 };
 
-exports.getAllProjectUser = function(user_id, callback){
-  projects.find({user_id: user_id}).toArray(
+exports.getAllProject = function(list_project_id, callback){
+  projects.find({_id: {$in: list_project_id}}).toArray(
     function(e, res){
       if (e) callback(e)
       else callback(null, res)
     });
 };
+
 exports.getProject = function(project_id, callback){
   projects.findOne({_id: new ObjectID(project_id)},  function(errItem, resItem){
+    if(resItem){
+      callback(null, resItem);
+    }else{
+      callback(null, null);
+    }
+  });
+};
+exports.updateProject = function(project_id, document, callback) {
+  projects.update({_id: new ObjectID(project_id)}, {$set: document}, function(errItem, resItem){
+    if(resItem){
+      callback(null, resItem);
+    }else{
+      callback(null, null);
+    }
+  });
+};
+exports.addUserProject = function(project_id, document, callback) {
+  projects.update({_id: new ObjectID(project_id)}, { $push: { user_ids: document } }, function(errItem, resItem){
     if(resItem){
       callback(null, resItem);
     }else{

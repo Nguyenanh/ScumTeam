@@ -2,7 +2,7 @@ extends ../menu
 block content
   .container-fluid.project-run
     .row
-      if user._id == project.master
+      if user._id == project.master_id
         label.run-title-project( data-toggle="modal" data-target="#rename-project")=project.title
         #rename-project.modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
               .modal-dialog.modal-sm
@@ -29,7 +29,7 @@ block content
       .dhe-example-section#ex-1-3
         .dhe-example-section-content
           #example-1-3
-            .column.left.first#todo
+            .column.left.first#todo(data-column = 1)
               span TODO
                   a.img-circle.glyphicon.glyphicon-plus.pull-right#new-note( data-toggle="modal" data-target="#new-note-form")
                   #new-note-form.modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
@@ -45,134 +45,43 @@ block content
                               .col-md-12#note-content
                                 textarea.form-control(rows='3')
                                 br
-                                select#note-rate.form-control
-                                  option(value='1') Easy
-                                  option(value='2') Average
-                                  option(value='3') Normal
-                                  option(value='4') Difficult
-                                  option(value='5') Very Difficult
+                                input#note-rate.form-control(type='number', name='point', min='0', max='100')
                                 br
                                 input.form-control(type='number', name='estimate', min='0', max='100')
                                 br
                                 a#save-note.btn.btn-primary(type='button') Save
-
-
-
                   input(type="hidden" name="idproject" value="#{project._id}")
               .scroll
                 ul.sortable-list.column-first(data-column = 1)
                   -for(var i =0; i<noteFs.length; i++)
-                    li.sortable-item(data-id = "#{noteFs[i]._id}")
-                      label.dropdown.pull-right
-                        a.edit-note.dropdown.dropdown-toggle.glyphicon.glyphicon-cog(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-                        ul.dropdown-menu(role="menu")
-                          li
-                            a(href="#") Edit
-                              i.glyphicon.glyphicon-pencil
-                          li
-                            a.note-remove(href="#") Remove
-                              i.glyphicon.glyphicon-trash
-                          li
-                            a(href="#") Status
-                              i.glyphicon.glyphicon-refresh
-                      p=noteFs[i].content
-                      -for(var j =1; j<=noteFs[i].rate; j++)
-                        i.glyphicon.glyphicon-star
-                      -for(var k =1; k<=6-noteFs[i].rate; k++)
-                        i.glyphicon.glyphicon-star-empty
-                      &#32;
-                      if noteFs[i].estimate == ""
-                        label 0
-                      else
-                        label=noteFs[i].estimate
-                      i.glyphicon.glyphicon-time
-            .column.left
+                    include ../partials/column-first
+            .column.left(data-column = 2)
               span PROCESSING
               .scroll
                 ul.sortable-list.column-second(data-column = 2)
                   -for(var i =0; i<noteSs.length; i++)
-                    li.sortable-item(data-id = "#{noteSs[i]._id}")
-                      label.dropdown.pull-right
-                        a.edit-note.dropdown.dropdown-toggle.glyphicon.glyphicon-cog(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-                        ul.dropdown-menu(role="menu")
-                          li
-                            a(href="#") Edit
-                              i.glyphicon.glyphicon-pencil
-                          li
-                            a.note-remove(href="#") Remove
-                              i.glyphicon.glyphicon-trash
-                          li
-                            a(href="#") Status
-                              i.glyphicon.glyphicon-refresh
-                      p=noteSs[i].content
-                      -for(var j =1; j<=noteSs[i].rate; j++)
-                        i.glyphicon.glyphicon-star
-                      -for(var k =1; k<=6-noteSs[i].rate; k++)
-                        i.glyphicon.glyphicon-star-empty
-                      &#32;
-                      if noteSs[i].estimate == ""
-                        label 0
-                      else
-                        label=noteSs[i].estimate
-                      i.glyphicon.glyphicon-time
-            .column.left
+                    if noteSs[i].user.user_id == user._id
+                      include ../partials/column-second
+                    else
+                      include ../partials/column-second-disable
+            .column.left(data-column = 3)
               span TEST
               .scroll
                 ul.sortable-list.column-third(data-column = 3)
                   -for(var i =0; i<noteTs.length; i++)
-                    li.sortable-item(data-id = "#{noteTs[i]._id}")
-                      label.dropdown.pull-right
-                        a.edit-note.dropdown.dropdown-toggle.glyphicon.glyphicon-cog(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-                        ul.dropdown-menu(role="menu")
-                          li
-                            a(href="#") Edit
-                              i.glyphicon.glyphicon-pencil
-                          li
-                            a.note-remove(href="#") Remove
-                              i.glyphicon.glyphicon-trash
-                          li
-                            a(href="#") Status
-                              i.glyphicon.glyphicon-refresh
-                      p=noteTs[i].content
-                      -for(var j =1; j<=noteTs[i].rate; j++)
-                        i.glyphicon.glyphicon-star
-                      -for(var k =1; k<=6-noteTs[i].rate; k++)
-                        i.glyphicon.glyphicon-star-empty
-                      &#32;
-                      if noteTs[i].estimate == ""
-                        label 0
-                      else
-                        label=noteTs[i].estimate
-                      i.glyphicon.glyphicon-time
-            .column.left
+                    if noteTs[i].user.user_id == user._id
+                      include ../partials/column-third
+                    else
+                      include ../partials/column-third-disable
+            .column.left(data-column = 4)
               span DONE
               .scroll
                 ul.sortable-list.column-four(data-column = 4)
                   -for(var i =0; i<noteFos.length; i++)
-                    li.sortable-item(data-id = "#{noteFos[i]._id}")
-                      label.dropdown.pull-right
-                        a.edit-note.dropdown.dropdown-toggle.glyphicon.glyphicon-cog(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-                        ul.dropdown-menu(role="menu")
-                          li
-                            a(href="#") Edit
-                              i.glyphicon.glyphicon-pencil
-                          li
-                            a.note-remove(href="#") Remove
-                              i.glyphicon.glyphicon-trash
-                          li
-                            a(href="#") Status
-                              i.glyphicon.glyphicon-refresh
-                      p=noteFos[i].content
-                      -for(var j =1; j<=noteFos[i].rate; j++)
-                        i.glyphicon.glyphicon-star
-                      -for(var k =1; k<=6-noteFos[i].rate; k++)
-                        i.glyphicon.glyphicon-star-empty
-                      &#32;
-                      if noteFos[i].estimate == ""
-                        label 0
-                      else
-                        label=noteFos[i].estimate
-                      i.glyphicon.glyphicon-time
+                    if noteFos[i].user.user_id == user._id
+                      include ../partials/column-four
+                    else
+                      include ../partials/column-four-disable
   #remove-note-form.modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
     .modal-dialog.modal-sm
       .modal-content
@@ -194,28 +103,18 @@ block content
             .panel-heading PDO
             .panel-body dhjk
   #sidebar
-    .container-fluid
-      .row
-        .col-md-12
-          .panel.panel-default
-            .panel-heading Members
-            .panel-body
-              #avatar_join
-                li.avatar_hear.img-circle(data-join="#{user.username}")
-                  if user.avatar != null
-                    img.size-image(alt='Brand', src='/uploads/images/#{user.avatar}' style="width:50px; height:50px;" )
-                  else
-                    label=user.firstname
-              .input-group#form-autocomplete
-                input.form-control#autocomplete(type="text")
-                input#user_id(type="hidden" name="user_id")
-                input#project_id(type="hidden" name="user_id")
-                span.input-group-btn
-                  button.btn.btn-default#add_user_project(type="submit") Add
-
+    include ../partials/sidebar
+  #note_deteil_template
+    include ../note/detail
 block script
   script(src='/js/jquery-ui.js')
-  script(src='/javascripts/dragdrop_profile.js')
-  script(src='/javascripts/ajax_note.js')
+  script(src='/javascripts/controller/note_controller.js')
+  script(src='/javascripts/controller/socket_controller.js')
+  script(src='/javascripts/controller/dragdrop_controller.js')
+  script(src='/javascripts/controller/comment_controller.js')
+  script(src='/javascripts/controller/tooltip_controller.js')
+  script(src='/javascripts/view/note_view.js')
+  script(src='/javascripts/view/dragdrop_view.js')
   script(src='/javascripts/toggle_sidebar.js')
   script(src='/javascripts/autocomplete.js')
+  script(src='/js/socket.io-1.3.4.js')

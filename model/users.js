@@ -74,3 +74,19 @@ exports.searchAllUsers = function(name, user_added, callback){
 	else callback(null, res)
 	});
 };
+exports.getAllUser = function(list_user_id, callback){
+  users.find({_id: {$in: list_user_id}}).toArray(
+    function(e, res){
+      if (e) callback(e)
+      else callback(null, res)
+    });
+};
+exports.addProjectUser = function(user_id, document, callback) {
+	users.update({_id: new ObjectID(user_id)},  { $push: { project_ids: document } }, function(errItem, resItem){
+		if(resItem){
+			callback(null, resItem);
+		}else{
+			callback(null, null);
+		}
+	});
+};

@@ -354,3 +354,31 @@ to {
 .ui-helper-hidden-accessible {
     display: none!important;
 }
+.online {
+    border: 1px solid #4cae4c!important;
+}
+
+#avatar_join li {
+    border: 1px solid #d6dadc;
+    position: relative;
+    margin-right: 8px;
+}
+#assign {
+    display: inline-block;
+    float: right;
+}
+li.unsortable {
+    background: #999;
+    opacity:.5;
+}
+#list-comment img {
+    float: left;
+}
+#list-comment .author {
+    float: left;
+    cursor: pointer;
+    padding-right: 7px;
+}
+#list-comment .comment-item {
+    padding: 4px 0;
+}

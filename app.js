@@ -40,12 +40,13 @@ app.use(multer({ dest: './public/uploads/images',
   onFileUploadComplete: function (file, req, res) {
     console.log(file.fieldname + ' uploaded to  ' + file.path)
     done = true;
+    console.log(done);
   }
 }));
 
 app.use(session({
   secret: 'keyboard cat',
-  resave: false,
+  resave: true,
   saveUninitialized: true
 }));
 app.use(app.router);
@@ -72,13 +73,6 @@ if (app.get('env') === 'development') {
     });
 }
 var server = http.createServer(app);
-var io = require('socket.io')(server);
-io.sockets.on('connection', function (socket) {
-  require('./socket/chat')(io,socket);
-});
-app.get('/chat', function(req, res){
-  res.render('chat');
-});
 app.post('/uploadphoto',function(req, res){
   console.log(done);
   if(done==true){
@@ -99,11 +93,20 @@ app.post('/uploadphoto',function(req, res){
     
   }
 });
+var io = require('socket.io')(server);
+var people_status = [];
+require('./socket/socket')(io, people_status);
 require('./routes/login')(app);
 require('./routes/register')(app);
-require('./routes/user')(app);
+require('./routes/user')(app, people_status);
 require('./routes/project')(app);
+require('./routes/comment')(app);
 require('./routes/note')(app);
+app.get('/chat', function(req, res){
+  res.render('chat');
+});
+
+
 app.use(function(err, req, res, next) {
     res.render('error', {
         message: err.message,

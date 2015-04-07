@@ -1,15 +1,21 @@
 var Mogodb  = require('../mongodb/connection');
 var US = require('../model/users');
 var PJ = require('../model/projects');
-module.exports = function(app){
+var ObjectID = Mogodb.ObjectID;
+module.exports = function(app, people_status){
 	app.get('/', function(req, res){
 		if(req.session.user){
 			US.getUser(req.session.user, function(errUser, resUser){
-				PJ.getAllProjectUser(req.session.user, function(errProject, resProject){
+				for(var i =0; i<=people_status.length; i++){
+				 	if(resUser.username != people_status[i])
+						people_status.push(resUser.username);
+						break;
+				}
+				PJ.getAllProject(resUser.project_ids, function(errListProject, resListProject){
 					res.render('user/index',{
 						title : "Dashboard",
 						user : resUser,
-						projects : resProject
+						projects : resListProject,
 					});
 				});
 			});					
@@ -19,17 +25,26 @@ module.exports = function(app){
 	});
 
 	app.get('/logout', function(req, res){
-		delete req.session.user
-		res.redirect('/');
+		US.getUser(req.session.user, function(errUser, resUser){
+			console.log(resUser);
+			for(var i =0; i<people_status.length; i++){
+				if(resUser.username == people_status[i])
+					people_status.splice(i, 1);
+			}
+			delete req.session.user
+			res.redirect('/');
+		});
 	});
 
 	app.get('/:username', function(req, res){
 		if(req.session.user){
-			US.getUsername(req.param("username"), function(errItem, resItem){
+			US.getUsername(req.param("username"), function(errUserProfile, resUserProfile){
+				US.getUser(req.session.user, function(errItem, resItem){
 				if(resItem){
 					res.render('user/profile',{
 						title : "Profile - " + resItem.firstname,
 						user : resItem,
+						UserProfile : resUserProfile,
 						errors : "",
 						messages : ""
 					});					
@@ -38,7 +53,7 @@ module.exports = function(app){
 						title : 'Not Found'
 					});
 				}
-
+				})
 			});
 		}else{
 			res.redirect('/login');
@@ -58,13 +73,12 @@ module.exports = function(app){
 				var document = {
 					password: req.param('newpassword')
 				}
-				US.updateUser(req.param('id'), document, function(errItem, resItem){
-					US.getUser(req.session.user, function(errUser, resUser){
-						console.log(resUser);
+				US.updateUser(req.session.user, document, function(errItem, resItem){
+					US.getUsername(req.param('username'), function(errUser, resUser){
 						res.render('user/profile',{
-							title : "Profile - " + resItem.firstname,
+							title : "Profile - " + resUser.firstname,
 							status : true,
-							massege : "Updated Password",
+							messages : "Updated Password",
 							user : resUser,
 							errors : "",
 						});
@@ -119,9 +133,14 @@ module.exports = function(app){
 	});
 	/*****************Add user in project Ajax******/
 	app.post('/user/ajax_add_user', function(req, res){
-		var user_id = req.body.user_id;
-		US.getUser(user_id, function(errUser, resUser){
-			res.send(resUser);
+		var user_id =new ObjectID(req.body.data.user_id);
+		var project_id = new ObjectID(req.body.data.project_id);
+		PJ.addUserProject(project_id, user_id, function(errAddUser, resAddUser){
+			US.addProjectUser(user_id, project_id, function(errAddProject, resAddProject){
+				US.getUser(user_id, function(errUser, resUser){
+					res.send(resUser);
+				});
+			});
 		});
 	});
 }
