@@ -40,21 +40,24 @@ $("#autocomplete").autocomplete({
     };
 /************Add user in projec************/
   $('#add_user_project').click(function(){
-    var user_id = $(this).closest('#form-autocomplete').find('#user_id').val();
-    var project_id = $(this).closest('#form-autocomplete').find('#project_id').val();
-    var data = {
-      user_id: user_id,
-      project_id: project_id,
-    }
-    $.ajax({
-      type : "POST",
-      data : {data: data},
-      url : location.origin+'/user/ajax_add_user',
-      success : function(data) {
-        $('#autocomplete').val('');
-        $('#avatar_join').append('<li class="img-circle avatar_hear" data-join='+data.username+'><img class="size-image" src="/uploads/images/'+data.avatar+'" style="width:50px; height:50px;"/></li>');
-        socket.emit('new_project_room', project_id);
+    var username = $( "#autocomplete" ).val();
+    if(username != "") {
+      var user_id = $(this).closest('#form-autocomplete').find('#user_id').val();
+      var project_id = $(this).closest('#form-autocomplete').find('#project_id').val();
+      var data = {
+        user_id: user_id,
+        project_id: project_id,
       }
-    });
+      $.ajax({
+        type : "POST",
+        data : {data: data},
+        url : location.origin+'/user/ajax_add_user',
+        success : function(data) {
+          $('#autocomplete').val('');
+          $('#avatar_join').append('<li class="img-circle avatar_hear" data-join='+data.username+'><img class="size-image" src="/uploads/images/'+data.avatar+'" style="width:50px; height:50px;"/></li>');
+          socket.emit('new_project_room', project_id);
+        }
+      });     
+    }
   });
 });

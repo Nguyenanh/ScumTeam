@@ -1,13 +1,12 @@
 extends layout
 
 block content
-  .body
+  .body-register
     .container
       .row
         .col-xs-12.col-sm-8.col-md-6.col-sm-offset-2.col-md-offset-3
           form(role='form', method="post" id="form-register")
-            h2
-              | Please Sign Up 
+            h2 Please Sign Up
               small It&apos;s free and always will be.
               | &#x9;&#x9;&#x9;
               hr.colorgraph
@@ -20,7 +19,7 @@ block content
                         span(aria-hidden='true') &times; 
                     strong=messages
                 if errors != ""
-                  .alert.alert-warning.notice(role='errors')
+                  .alert.alert-danger.notice(role='errors')
                     button.close(type='button', data-dismiss='alert', aria-label='Close')
                         span(aria-hidden='true') &times; 
                     strong=errors

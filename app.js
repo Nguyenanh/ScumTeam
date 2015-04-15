@@ -102,6 +102,7 @@ require('./routes/user')(app, people_status);
 require('./routes/project')(app);
 require('./routes/comment')(app);
 require('./routes/note')(app);
+require('./routes/sprint')(app);
 app.get('/chat', function(req, res){
   res.render('chat');
 });

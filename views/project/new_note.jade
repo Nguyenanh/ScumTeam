@@ -1,0 +1,18 @@
+#new-note-form.modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          span(aria-hidden='true') &times;  
+        h4#myModalLabel.modal-title New Note 
+      .modal-body
+        .container-fluid
+          .row
+            .col-md-12#note-content
+              textarea.form-control(rows='3' placeholder="Enter note title")
+              br
+              input#note-rate.form-control(type='number', name='point' placeholder="Point of note")
+              br
+              input.form-control(type='number', name='estimate' placeholder="Estimate of note")
+              br
+              a#save-note.btn.btn-primary(type='button') Save

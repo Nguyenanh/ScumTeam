@@ -19,5 +19,7 @@ module.exports = {
   projects:db.collection('projects'),
   notes:db.collection('notes'),
   comments:db.collection('comments'),
+  sprints:db.collection('sprints'),
+  user_storys: db.collection('user_storys'),
 	ObjectID:ObjectID,
 }

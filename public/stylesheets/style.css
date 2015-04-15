@@ -2,27 +2,37 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
 @import url(http://fonts.googleapis.com/css?family=Dosis); 
 .body{
-	top: -20px;
-	left: -20px;
-	right: -40px;
-	bottom: -40px;
-	min-height: 712px;
-	background-image: url(http://ginva.com/wp-content/uploads/2012/07/city-skyline-wallpapers-008.jpg);
-	background-size: cover;
-/*	-webkit-filter: blur(5px);*/
-	z-index: 0;
+  top: -20px;
+  left: -20px;
+  right: -40px;
+  bottom: -40px;
+  min-height: 712px;
+  background-image: url(../images/background.jpg);
+  background-size: cover;
+/*  -webkit-filter: blur(5px);*/
+  z-index: 0;
+}
+.body-register{
+  top: -20px;
+  left: -20px;
+  right: -40px;
+  bottom: -40px;
+  min-height: 712px;
+  background-image: url(../images/background1.jpg);
+  background-size: cover;
+/*  -webkit-filter: blur(5px);*/
+  z-index: 0;
 }
 
 
-
 .header {
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 35px;
-	font-weight: 200;
-	top: 230px;
-	text-align: right;
-	z-index: 2;
+  color: #fff;
+  font-family: 'Exo', sans-serif;
+  font-size: 35px;
+  font-weight: 200;
+  top: 230px;
+  text-align: right;
+  z-index: 2;
 }
 .loginform {
   top: 220px;
@@ -32,35 +42,35 @@
   border: 1px solid #fff;
 }
 .header span{
-	color: #5379fa !important;
+  color: #5379fa !important;
 }
 .colorgraph {
-	height: 5px;
-	border-top: 0;
-	background: #c4e17f;
-	border-radius: 5px;
-	background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-	background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-	background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-	background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  height: 5px;
+  border-top: 0;
+  background: #c4e17f;
+  border-radius: 5px;
+  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
 #form-register input.transparent {
-	background: transparent;
+  background: transparent;
 }
 .error {
-	color: #f0776c;
-	font-size:13px;
+  color: #f0776c;
+  font-size:13px;
 }
 .notice {
-	position: fixed;
-	width: 242px;
-	right: 11px;
-	top: 22px;
-	cursor: pointer;
-	font-size: 15px;
+  position: fixed;
+  width: 242px;
+  right: 11px;
+  top: 22px;
+  cursor: pointer;
+  font-size: 15px;
 }
 .notice:hover {
-	opacity: 0.7;
+  opacity: 0.7;
 }
 .header-div {
     background: url(../images/1.jpg); /* DEFINE IMAGE PATH CAREFULLY*/
@@ -264,9 +274,7 @@ to {
     margin-top: 5px;
 }
 .project-run {
-    text-align: center;
     margin: 0 15px;
-    background: #0E74AF;
 }
 .run-title-project {
     padding: 0 10px;
@@ -294,6 +302,7 @@ to {
 #new-note {
     cursor: pointer;
     border: 1px solid #337ab7;
+    margin-right: 10px;
 }
 #new-note:hover {
     text-decoration: none;
@@ -306,6 +315,7 @@ to {
 }
 .edit-note {
     font-size: 10px;
+
 }
 .edit-note:hover {
     text-decoration: none;
@@ -379,6 +389,24 @@ li.unsortable {
     cursor: pointer;
     padding-right: 7px;
 }
+#list-comment {
+    height: 460px;
+    overflow-y: auto;
+
+}
 #list-comment .comment-item {
     padding: 4px 0;
+    border-bottom: 1px solid #dedede;
+}
+#form-register .form-group input {
+  color: #fff;
+}
+.date-project {
+  padding: 17px 0;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+}
+.date-project label {
+    cursor: pointer;
 }

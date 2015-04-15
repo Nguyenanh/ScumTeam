@@ -42,6 +42,7 @@ module.exports = function(io, people_status){
       });
     });  
 /*********End New Comment ***********/
+
 /************New Project ************/
     socket.on('new_project_room', function (data) {
       var project_id = data;
@@ -54,6 +55,24 @@ module.exports = function(io, people_status){
           io.sockets.emit('new_project_room', data);
         });
       });
+    });
+
+/*************Rename Project ***********/
+    socket.on('rename_project', function (data) {
+      var document = {
+        title : data.project_name,
+        sprint : data.project_sprint,
+        deadline : data.project_deadline,
+      }
+      PJ.updateProject(data.project_id, document, function(errProjectUpdate, resProjectUpdate) {
+        PJ.getProject(data.project_id, function(errProject, resProject) {
+          io.sockets.emit(data.project_id+'_rename_project', resProject);
+        });
+      });
+    });
+    
+    socket.on('add_user_story', function (data){
+
     });
   });
 }

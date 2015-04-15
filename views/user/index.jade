@@ -5,32 +5,11 @@ block content
       .col-md-12.header-project
         .page-header
           span.glyphicon.glyphicon-user.red
-            h3 My Projects
+            h3 My Kanban
           button.btn.btn-primary(type="button" data-toggle="modal" data-target="#new-project")
             i.glyphicon.glyphicon-plus
-            | New 
-          #new-project.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-            .modal-dialog
-                .modal-content
-                  .modal-header
-                    button.close(type='button', data-dismiss='modal', aria-label='Close')
-                      span(aria-hidden='true') &times;      
-                    h4#myModalLabel.modal-title New Project  
-                  .modal-body.new-content-project
-                    .container-fluid
-                      .row
-                        .col-md-12
-                          .form-group#title
-                            label.control-label Title
-                            input.form-control(type="text" name="title" placeholder="Title")
-                        .col-md-12
-                          .form-group#datetime
-                            label.control-label Time Deadline
-                            input.form-control(type='date' name="date")
-                            input(type="hidden" name="master" value="#{user.firstname}")
-                            input(type="hidden" name="master_id" value="#{user._id}")
-                  .modal-footer 
-                    button.btn.btn-primary#save-new-project(type='button') Save changes
+            | New
+          include popup_new_project
     .row.list-project
       -for(var i =0; i<projects.length; i++)
         .col-md-3
@@ -42,7 +21,6 @@ block content
             a.back-ground-blue(href="/project/#{projects[i]._id}" data-toggle="tooltip" title="#{projects[i].master}")
               span=projects[i].title
               label.status-project.img-circle=projects[i].status
-  #message
 block script
   script(src='/javascripts/controller/project_controller.js')
   script(src='/javascripts/controller/socket_controller.js')

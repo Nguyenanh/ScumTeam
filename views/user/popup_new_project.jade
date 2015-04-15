@@ -1,0 +1,32 @@
+#new-project.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+  .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;      
+          h3#myModalLabel.modal-title 
+          i.glyphicon.glyphicon-th
+          | Start New Kanban  
+        .modal-body.new-content-project
+          .container-fluid
+            .row
+              .col-md-12
+                .form-group#title
+                  label.control-label Title
+                  input.form-control(type="text" name="title" placeholder="Title")
+              .col-md-12
+                .form-group#datetime
+                  label.control-label Time Deadline
+                  input.form-control(type='date' name="date")
+                  input(type="hidden" name="master" value="#{user.firstname}")
+                  input(type="hidden" name="master_id" value="#{user._id}")
+              .col-md-12
+                .form-group#pdo-project
+                  label.control-label PDO
+                  textarea.form-control(name="content_pdo" rows=5 placeholder="Infomation Project")
+              .col-md-12
+                .form-group#spring
+                  label.control-label Spring
+                  input.form-control(name="spring" type="number" placeholder="Enter number spring")
+        .modal-footer 
+          button.btn.btn-primary#save-new-project(type='button') Save

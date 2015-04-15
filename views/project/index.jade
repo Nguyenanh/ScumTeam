@@ -3,25 +3,24 @@ block content
   .container-fluid.project-run
     .row
       if user._id == project.master_id
-        label.run-title-project( data-toggle="modal" data-target="#rename-project")=project.title
-        #rename-project.modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-              .modal-dialog.modal-sm
-                  .modal-content
-                    .modal-header
-                      button.close(type='button', data-dismiss='modal', aria-label='Close')
-                        span(aria-hidden='true') &times;      
-                      h4#myModalLabel.modal-title Rename Project  
-                    .modal-body.new-content-project
-                      .container-fluid
-                        .row
-                          .col-md-12
-                            .form-group
-                              label.control-label Title
-                              input.form-control(type="text" name="title" placeholder="Title" value="#{project.title}")
-                    .modal-footer 
-                      button.btn.btn-primary#save-new-project(type='button') Rename
+        label.pull-left.run-title-project(data-toggle="modal" data-target="#rename-project")=project.title
+        include rename_note
       else
-        label.run-title-project=project.title
+        label.pull-left.run-title-project=project.title
+      .date-project.pull-left
+        label.label.label-warning#deadline-project End: &#32;
+          =project.deadline
+        label.label.label-success#sprint-project=project.sprint
+          | &#32; spring
+        input(type="hidden" value="#{sprint._id}" name="sprint_id")
+        input(type="hidden" value="#{sprint.number}" name="sprint_number")
+        input(type="hidden" value="#{project.count_date_of_sprint}" name="count_date_of_sprint")
+        label.label.label-danger Sprint &#32;
+          =sprint.number
+          | &#32;
+        label.label.label-danger#sprint_start=sprint.start
+        label.label.label-danger &#32; To &#32;
+        label.label.label-danger#sprint_end=sprint.end
       input(type="hidden" name="project_id" value="#{project._id}")
       a#trig.btn.btn-warning.pull-right.glyphicon.glyphicon-backward
   .container-fluid 
@@ -32,24 +31,7 @@ block content
             .column.left.first#todo(data-column = 1)
               span TODO
                   a.img-circle.glyphicon.glyphicon-plus.pull-right#new-note( data-toggle="modal" data-target="#new-note-form")
-                  #new-note-form.modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-                    .modal-dialog.modal-sm
-                      .modal-content
-                        .modal-header
-                          button.close(type='button', data-dismiss='modal', aria-label='Close')
-                            span(aria-hidden='true') &times;  
-                          h4#myModalLabel.modal-title New Note 
-                        .modal-body
-                          .container-fluid
-                            .row
-                              .col-md-12#note-content
-                                textarea.form-control(rows='3')
-                                br
-                                input#note-rate.form-control(type='number', name='point', min='0', max='100')
-                                br
-                                input.form-control(type='number', name='estimate', min='0', max='100')
-                                br
-                                a#save-note.btn.btn-primary(type='button') Save
+                  include new_note
                   input(type="hidden" name="idproject" value="#{project._id}")
               .scroll
                 ul.sortable-list.column-first(data-column = 1)
@@ -97,20 +79,22 @@ block content
 
   .container-fluid
     .row
-      .col-offset-md-12.pull-right
-        .PDO
-          .panel.panel-default
-            .panel-heading PDO
-            .panel-body dhjk
+      include ../partials/user_story_chart
+      include ../partials/burn_down_chart
+      include ../partials/column-pdo
   #sidebar
     include ../partials/sidebar
   #note_deteil_template
     include ../note/detail
 block script
+  script(src='/javascripts/user_story_chart.js')
+  script(src='/javascripts/burn_down_chart.js')
   script(src='/js/jquery-ui.js')
   script(src='/javascripts/controller/note_controller.js')
+  script(src='/javascripts/controller/user_story_controller.js')
   script(src='/javascripts/controller/socket_controller.js')
   script(src='/javascripts/controller/dragdrop_controller.js')
+  script(src='/javascripts/controller/project_controller.js')
   script(src='/javascripts/controller/comment_controller.js')
   script(src='/javascripts/controller/tooltip_controller.js')
   script(src='/javascripts/view/note_view.js')

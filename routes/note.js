@@ -8,6 +8,7 @@ module.exports = function(app){
        content: req.body.data.content,
        estimate: req.body.data.estimate,
        rate: req.body.data.rate,
+       sprint_number: parseInt(req.body.data.sprint_number),
        column: 1,
        assign: "f",
        user: null,
