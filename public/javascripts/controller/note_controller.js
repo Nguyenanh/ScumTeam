@@ -55,3 +55,13 @@ Note.prototype.Detail = function(note_id) {
     }
   });
 }
+Note.prototype.get_note_done = function(data_chart, callback) {
+  $.ajax({
+    type: "POST",
+    data: {data : data_chart},
+    url : location.origin+"/note/ajax_get_note_done",
+    success : function(data) {
+     callback(data);
+    }
+  });
+}

@@ -11,7 +11,6 @@ $(document).ready(function() {
 
   var socketconnect = new SocketConnect();
   var socket = socketconnect.connect();
-
   socket.on('people_status', function (list_user){
     $('#avatar_join li').each(function (index){
       if($.inArray($(this).data('join'), list_user) > -1)

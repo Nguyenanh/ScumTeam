@@ -11,7 +11,7 @@ block content
         label.label.label-warning#deadline-project End: &#32;
           =project.deadline
         label.label.label-success#sprint-project=project.sprint
-          | &#32; spring
+          | &#32; Sprint
         input(type="hidden" value="#{sprint._id}" name="sprint_id")
         input(type="hidden" value="#{sprint.number}" name="sprint_number")
         input(type="hidden" value="#{project.count_date_of_sprint}" name="count_date_of_sprint")
@@ -86,6 +86,9 @@ block content
     include ../partials/sidebar
   #note_deteil_template
     include ../note/detail
+  #param_project
+    input(type="hidden" value="#{countNotes}" name="count_note")
+    input(type="hidden" value="#{countPoints}" name="count_point")
 block script
   script(src='/javascripts/user_story_chart.js')
   script(src='/javascripts/burn_down_chart.js')

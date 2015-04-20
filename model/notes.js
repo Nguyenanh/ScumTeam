@@ -12,32 +12,32 @@ exports.insertNote = function(document, callback) {
 }
 
 /***get all note colum first **/
-exports.getAllNoteColFirst = function(project_id, callback) {
-  notes.find({project_id: project_id, column: 1 }).toArray(
+exports.getAllNoteColFirst = function(number, project_id, callback) {
+  notes.find({project_id: project_id, column: 1, sprint_number :number }).toArray(
     function(e, res) {
       if(e) callback(e)
       else callback(null, res)
     });
 }
 /***get all note colum second **/
-exports.getAllNoteColSecond = function(project_id, callback) {
-  notes.find({project_id: project_id,  column: 2 }).toArray(
+exports.getAllNoteColSecond = function(number, project_id, callback) {
+  notes.find({project_id: project_id,  column: 2, sprint_number :number }).toArray(
     function(e, res) {
       if(e) callback(e)
       else callback(null, res)
     });
 }
 /***get all note colum third **/
-exports.getAllNoteColThird = function(project_id, callback) {
-  notes.find({project_id: project_id, column: 3 }).toArray(
+exports.getAllNoteColThird = function(number, project_id, callback) {
+  notes.find({project_id: project_id, column: 3, sprint_number :number }).toArray(
     function(e, res) {
       if(e) callback(e)
       else callback(null, res)
     });
 }
 /***get all note colum four **/
-exports.getAllNoteColFour = function(project_id, callback) {
-  notes.find({project_id: project_id, column: 4 }).toArray(
+exports.getAllNoteColFour = function(number, project_id, callback) {
+  notes.find({project_id: project_id, column: 4, sprint_number :number }).toArray(
     function(e, res) {
       if(e) callback(e)
       else callback(null, res)
@@ -75,3 +75,22 @@ exports.getNoteColum = function(project_id, column, callback){
       else callback(null, res)
     });
 };
+exports.getCountNote = function(project_id, sprint_number, callback){
+  notes.find({project_id: project_id, sprint_number : sprint_number}).count(
+    function(err, result) {
+      callback(null,result);
+    }
+  );
+};
+exports.getCountPoint = function(project_id, sprint_number, callback){
+  notes.aggregate([{ $match : {project_id: project_id, sprint_number: sprint_number} },{$group:{_id: "", estimate: {$sum: "$estimate"}}}], function(err, result) {
+    if(result){
+       callback(err, result);
+     }
+    else {
+      callback(null, result);
+    }
+  });
+ 
+};
+

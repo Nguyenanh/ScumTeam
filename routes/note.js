@@ -1,12 +1,13 @@
 var Mogodb  = require('../mongodb/connection');
 var NT = require('../model/notes');
 var CM = require('../model/comments');
+var ObjectID = Mogodb.ObjectID;
 module.exports = function(app){
   app.post('/note/ajaxnewnote', function(req, res){
     var note = {
        project_id: req.body.data.id,
        content: req.body.data.content,
-       estimate: req.body.data.estimate,
+       estimate: parseInt(req.body.data.estimate),
        rate: req.body.data.rate,
        sprint_number: parseInt(req.body.data.sprint_number),
        column: 1,
@@ -44,6 +45,8 @@ module.exports = function(app){
         }
       }
     }
+    var current_date = new Date();
+    document.date_complete = current_date.getFullYear()+"/"+(current_date.getMonth()+1)+"/"+current_date.getDate();
     NT.updateNote(req.body.datanote.note_id, document, function(errNote, resNote){
       NT.getNote(req.body.datanote.note_id, function(erraNote, resaNote){
         res.send(resaNote);
@@ -67,6 +70,12 @@ module.exports = function(app){
         }
         res.send(data);
       })
+    });
+  });
+
+  app.post('/note/ajax_get_note_done', function(req, res) {
+    NT.getAllNoteColFour(parseInt(req.body.data.sprint_number), req.body.data.project_id, function(errNote, resNote) {
+      res.send(resNote);
     });
   });
 }

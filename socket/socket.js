@@ -70,9 +70,12 @@ module.exports = function(io, people_status){
         });
       });
     });
-    
-    socket.on('add_user_story', function (data){
-
+/************Caculate Chart*****************/   
+    socket.on('caculate_chart', function (data){
+      NT.getAllNoteColFour(parseInt(data.sprint_number), data.project_id, function(errNote, resNote) {
+        console.log(resNote);
+        io.sockets.emit(data.project_id+'_caculate_chart', resNote);
+      });
     });
   });
 }

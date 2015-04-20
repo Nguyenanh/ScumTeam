@@ -9,9 +9,13 @@ Dragdrop.prototype.move_assign = function(data_note, socket) {
     success: function(data) {
       var column = {
         project_id : data_note.project_id,
-        column: data.column
+        column: data.column,
+        sprint_number : data.sprint_number,
       }
       socket.emit('dragdrop_note', column);
+      if(data.column  == 4 ) {
+        socket.emit('caculate_chart', column);
+      }
     }
   });
 };

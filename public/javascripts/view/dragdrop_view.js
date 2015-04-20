@@ -58,6 +58,7 @@ $(document).ready(function(){
           assign: "f",
           user: null,
           owner: 0,
+          sprint_number: parseInt($('.project-run input[name=sprint_number]').val()),
         };
         dragdrop.move_assign(data_note, socket);
       }
@@ -75,13 +76,24 @@ $(document).ready(function(){
           user : user_info,
           assign: "t",
           owner: $(ui.item).data('owner'),
+          sprint_number: parseInt($('.project-run input[name=sprint_number]').val()),
         };
         dragdrop.move_assign(data_note, socket);
       }
     },
     remove: function( event, ui ) {
-      column = parseInt($(this).data('column')),
+
+      column = parseInt($(this).data('column'));
+      var data_chart = {
+        project_id : project_id,
+        column: column,
+        sprint_number : parseInt($('.project-run input[name=sprint_number]').val()),
+      }
       socket.emit('dragdrop_note_old', column);
+      if(column == 4) {
+        console.log(data_chart);
+        socket.emit('caculate_chart', data_chart);       
+      }
     },
   }).disableSelection();   
 

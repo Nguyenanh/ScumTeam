@@ -63,25 +63,40 @@ module.exports = function(app){
 
   app.get('/project/:project_id', function(req, res){
     PJ.getProject(req.param('project_id'), function(errProject, resProject){
-      US.getUser(req.session.user, function(errUser, resUser){
-        NT.getAllNoteColFirst(req.param('project_id'), function(errNoteF, resNoteF){
-          NT.getAllNoteColSecond(req.param('project_id'), function(errNoteS, resNoteS){
-            NT.getAllNoteColThird(req.param('project_id'), function(errNoteT, resNoteT){
-              NT.getAllNoteColFour(req.param('project_id'), function(errNoteFo, resNoteFo){
-                US.getAllUser(resProject.user_ids, function(errListUser, resListUser){
-                  SP.getNumberSprint(1, req.param('project_id'), function(errSprint, resSprint){
-                    res.render('project/index',{
-                    title: resProject.title + "| Scrum",
-                    project: resProject,
-                    user:resUser,
-                    noteFs: resNoteF,
-                    noteSs: resNoteS, 
-                    noteTs: resNoteT, 
-                    noteFos: resNoteFo,
-                    userAll: resListUser,
-                    sprint : resSprint,
+      var new_date = new Date();
+      var date_current = new_date.getFullYear()+"/"+(new_date.getMonth()+1)+"/"+new_date.getDate();
+      SP.getNumberSprint(date_current, req.param('project_id'), function(errSprint, resSprint){
+        US.getUser(req.session.user, function(errUser, resUser){
+          NT.getAllNoteColFirst(resSprint.number, req.param('project_id'), function(errNoteF, resNoteF){
+            NT.getAllNoteColSecond(resSprint.number, req.param('project_id'), function(errNoteS, resNoteS){
+              NT.getAllNoteColThird(resSprint.number, req.param('project_id'), function(errNoteT, resNoteT){
+                NT.getAllNoteColFour(resSprint.number, req.param('project_id'), function(errNoteFo, resNoteFo){
+                  US.getAllUser(resProject.user_ids, function(errListUser, resListUser){
+                    NT.getCountNote(req.param('project_id'), resSprint.number, function(errCountNote, resCountNote){
+                      NT.getCountPoint(req.param('project_id'), resSprint.number,  function(errCountPoint, resCountPont){
+                        console.log(resCountPont);
+                        if (resCountPont[0]) {
+                          var countpoints =  resCountPont[0].estimate;
+                        }
+                        else {
+                          var countpoints = 0;
+                        }
+                        res.render('project/index',{
+                          title: resProject.title + "| Scrum",
+                          project: resProject,
+                          user:resUser,
+                          noteFs: resNoteF,
+                          noteSs: resNoteS, 
+                          noteTs: resNoteT, 
+                          noteFos: resNoteFo,
+                          userAll: resListUser,
+                          sprint : resSprint,
+                          countNotes : resCountNote,
+                          countPoints : countpoints,
+                        });
+                      });
+                    });
                   });
-                  })
                 });
               });
             });
@@ -90,6 +105,5 @@ module.exports = function(app){
       });
     });
   });
-
 
 }
