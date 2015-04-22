@@ -42,7 +42,7 @@ block content
               .scroll
                 ul.sortable-list.column-second(data-column = 2)
                   -for(var i =0; i<noteSs.length; i++)
-                    if noteSs[i].user.user_id == user._id
+                    if noteSs[i].user.user_id == user._id || project.master_id == user._id
                       include ../partials/column-second
                     else
                       include ../partials/column-second-disable
@@ -51,7 +51,7 @@ block content
               .scroll
                 ul.sortable-list.column-third(data-column = 3)
                   -for(var i =0; i<noteTs.length; i++)
-                    if noteTs[i].user.user_id == user._id
+                    if noteTs[i].user.user_id == user._id || project.master_id == user._id
                       include ../partials/column-third
                     else
                       include ../partials/column-third-disable
@@ -60,7 +60,7 @@ block content
               .scroll
                 ul.sortable-list.column-four(data-column = 4)
                   -for(var i =0; i<noteFos.length; i++)
-                    if noteFos[i].user.user_id == user._id
+                    if noteFos[i].user.user_id == user._id || project.master_id == user._id
                       include ../partials/column-four
                     else
                       include ../partials/column-four-disable
@@ -89,6 +89,7 @@ block content
   #param_project
     input(type="hidden" value="#{countNotes}" name="count_note")
     input(type="hidden" value="#{countPoints}" name="count_point")
+    input(type="hidden" value="#{project.master_id}" name="master_project")
 block script
   script(src='/javascripts/user_story_chart.js')
   script(src='/javascripts/burn_down_chart.js')

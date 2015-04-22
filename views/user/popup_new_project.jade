@@ -16,17 +16,17 @@
                   input.form-control(type="text" name="title" placeholder="Title")
               .col-md-12
                 .form-group#datetime
-                  label.control-label Time Deadline
-                  input.form-control(type='date' name="date")
+                  label.control-label Date of a sprint
+                  input#dp1.form-control.input-sm(type="text" placeholder="Choose Date" name="date" readonly="readonly")
                   input(type="hidden" name="master" value="#{user.firstname}")
                   input(type="hidden" name="master_id" value="#{user._id}")
               .col-md-12
                 .form-group#pdo-project
                   label.control-label PDO
-                  textarea.form-control(name="content_pdo" rows=5 placeholder="Infomation Project")
+                  textarea.form-control#pdo-textarea(name="content_pdo" rows=5 placeholder="Infomation Project")
               .col-md-12
                 .form-group#spring
-                  label.control-label Spring
-                  input.form-control(name="spring" type="number" placeholder="Enter number spring")
+                  label.control-label Sprint
+                  input.form-control(name="spring" type="number" placeholder="Enter number sprint")
         .modal-footer 
           button.btn.btn-primary#save-new-project(type='button') Save

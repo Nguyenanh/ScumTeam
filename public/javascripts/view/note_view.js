@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  var parseHtml = $('#content-pdo-html').text();
+  $('#content-pdo-html').text("");
+  $('#content-pdo-html').append(parseHtml);
   var note = new Note();
   var user_story_chart = new UserStory();
   var comment = new Comment();
@@ -46,12 +49,7 @@ $(document).ready(function() {
         id: $('input[name=idproject]').val(),
         sprint_number : $('.project-run input[name=sprint_number]').val(),
       };
-      var user_story = {
-        sprint_id : $('.project-run input[name=print_id]').val(),
-        project_id : $('input[name=idproject]').val(),
-      };
       note.Addnote(data, socket);
-      user_story_chart.Create_chart(user_story, socket);
     }
   });
   /******************End New Note***************/

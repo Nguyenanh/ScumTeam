@@ -21,17 +21,27 @@ module.exports = function(app){
       created_at : new Date(),
       updated_at : new Date(),
     }
-    var day_current = new Date(document.created_at.getFullYear(), document.created_at.getMonth(), 0).getDate();
-    var count_day_current = day_current + document.created_at.getDate();
+
+    var day_current = new Date(document.start_date.getFullYear(), document.start_date.getMonth(), 0).getDate();
+    var count_day_current = day_current + document.start_date.getDate();
+
     var date_new= new Date(document.deadline);
     var date_deadline = new Date(date_new.getFullYear(), date_new.getMonth(), 0).getDate();
     var count_day_deadline = date_deadline + date_new.getDate();
-    var count_date_of_sprint = parseInt(count_day_deadline - count_day_current)/parseInt(document.sprint);
 
-    var date_sprint = new Date(document.created_at);
+    var count_date_of_sprint = parseInt(count_day_deadline - count_day_current)
+
+    var date_sprint = new Date(document.start_date);
     document.count_date_of_sprint = count_date_of_sprint;
+
+    var day_end_project = new Date(document.start_date);
+
+    day_end_project.setDate(day_end_project.getDate() + (count_date_of_sprint*parseInt(document.sprint)));
+    console.log(day_end_project);
+    document.deadline = day_end_project.getFullYear()+"/"+(day_end_project.getMonth()+1) +"/"+day_end_project.getDate();
     PJ.insertProject(document, function(errProject, resProject){ 
       for(var i = 1; i <= parseInt(document.sprint); i++) {
+
         var start_sprint = new Date(date_sprint);
         start_sprint.setDate(start_sprint.getDate() + 0);
 
@@ -73,10 +83,9 @@ module.exports = function(app){
                 NT.getAllNoteColFour(resSprint.number, req.param('project_id'), function(errNoteFo, resNoteFo){
                   US.getAllUser(resProject.user_ids, function(errListUser, resListUser){
                     NT.getCountNote(req.param('project_id'), resSprint.number, function(errCountNote, resCountNote){
-                      NT.getCountPoint(req.param('project_id'), resSprint.number,  function(errCountPoint, resCountPont){
-                        console.log(resCountPont);
-                        if (resCountPont[0]) {
-                          var countpoints =  resCountPont[0].estimate;
+                      NT.getCountPoint(req.param('project_id'), resSprint.number,  function(errCountPoint, resCountPoint){
+                        if (resCountPoint[0]) {
+                          var countpoints =  resCountPoint[0].estimate;
                         }
                         else {
                           var countpoints = 0;

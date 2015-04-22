@@ -68,8 +68,8 @@ exports.deleteNote = function(note_id, callback){
     callback(null, null);
   });
 };
-exports.getNoteColum = function(project_id, column, callback){
-  notes.find({project_id: project_id, column: column }).toArray(
+exports.getNoteColum = function(project_id, column, sprint_number, callback){
+  notes.find({project_id: project_id, column: column, sprint_number : sprint_number }).toArray(
     function(e, res) {
       if(e) callback(e)
       else callback(null, res)

@@ -4,6 +4,7 @@ $(document).ready(function(){
   var socket = socketconnect.connect();
   var project_id = $('#form-autocomplete #project_id').val();
   var user_id = $('body input[name=socket_user_id]').val();
+  var master_project = $('#param_project input[name=master_project]').val();
   socket.on('dragdrop_note', function (data){
     if(project_id == data.project_id) {
       $('.column').each(function (index){
@@ -12,7 +13,7 @@ $(document).ready(function(){
           $(this).find('li').remove();
           for(var i = 0; i < data.note_news.length; i++) {
             if(data.note_news[i].assign == "t") {
-              if(data.note_news[i].user.user_id == user_id) {
+              if(data.note_news[i].user.user_id == user_id || user_id == master_project) {
                 var disable_class = "";
               }else {
                 var disable_class = "unsortable";
@@ -28,7 +29,7 @@ $(document).ready(function(){
           $(this).find('li').remove();
           for(var i = 0; i < data.note_olds.length; i++) {
             if(data.note_olds[i].assign == "t") {
-              if(data.note_olds[i].user.user_id == user_id) {
+              if(data.note_olds[i].user.user_id == user_id || user_id == master_project) {
                 var disable_class = "";
               }else {
                 var disable_class = "unsortable";

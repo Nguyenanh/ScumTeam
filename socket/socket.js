@@ -21,8 +21,8 @@ module.exports = function(io, people_status){
       column_old = data;
     });
     socket.on('dragdrop_note', function (data) {
-      NT.getNoteColum(data.project_id, data.column, function(errNoteNews, resNoteNews){
-        NT.getNoteColum(data.project_id, column_old, function(errNoteOlds, resNoteOlds){
+      NT.getNoteColum(data.project_id, data.column, parseInt(data.sprint_number), function(errNoteNews, resNoteNews){
+        NT.getNoteColum(data.project_id, column_old, parseInt(data.sprint_number), function(errNoteOlds, resNoteOlds){
           var list_notes = {
             project_id : data.project_id,
             note_news :resNoteNews,
@@ -72,9 +72,17 @@ module.exports = function(io, people_status){
     });
 /************Caculate Chart*****************/   
     socket.on('caculate_chart', function (data){
-      NT.getAllNoteColFour(parseInt(data.sprint_number), data.project_id, function(errNote, resNote) {
-        console.log(resNote);
-        io.sockets.emit(data.project_id+'_caculate_chart', resNote);
+      NT.getCountNote(data.project_id, parseInt(data.sprint_number), function(errCountNote, resCountNote){
+        NT.getCountPoint(data.project_id, parseInt(data.sprint_number),  function(errCountPoint, resCountPoint){
+          NT.getAllNoteColFour(parseInt(data.sprint_number), data.project_id, function(errNote, resNote) {
+            var data_chart = {
+              count_note: resCountNote,
+              count_point: resCountPoint[0].estimate,
+              resNote: resNote,
+            }
+            io.sockets.emit(data.project_id+'_caculate_chart', data_chart);
+          });
+        });
       });
     });
   });

@@ -10,7 +10,7 @@ Dragdrop.prototype.move_assign = function(data_note, socket) {
       var column = {
         project_id : data_note.project_id,
         column: data.column,
-        sprint_number : data.sprint_number,
+        sprint_number : data_note.sprint_number,
       }
       socket.emit('dragdrop_note', column);
       if(data.column  == 4 ) {

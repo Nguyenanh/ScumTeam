@@ -77,17 +77,17 @@ $(document).ready(function(){
 
   socket.on(dash_chart.project_id+'_caculate_chart', function (list_note_done) {
     var note_number_of_date = [];
-    note_number_of_date.push(count_point);
+    note_number_of_date.push(list_note_done.count_point);
     var total_note = [];
     total_note[0] = 0;
     for (var i = 1; i < date_of_sprint.length; i++) {
       total_note[i] = total_note[i-1];
-      for (var j = 0; j < list_note_done.length; j++) {
-        if(list_note_done[j].date_complete == date_of_sprint[i]) {
-          total_note[i]+= list_note_done[j].estimate;
+      for (var j = 0; j < list_note_done.resNote.length; j++) {
+        if(list_note_done.resNote[j].date_complete == date_of_sprint[i]) {
+          total_note[i]+= list_note_done.resNote[j].estimate;
         }
       };
-      note_number_of_date.push(count_point-total_note[i]);
+      note_number_of_date.push(list_note_done.count_point-total_note[i]);
     };
     $('#BurnDown').highcharts({
       title: {
@@ -103,7 +103,7 @@ $(document).ready(function(){
           },
           tickInterval: 2,
           min: 0,
-          max: count_point,
+          max: list_note_done.count_point,
           plotLines: [{
               value: 0,
               width: 1,

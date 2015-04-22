@@ -410,3 +410,9 @@ li.unsortable {
 .date-project label {
     cursor: pointer;
 }
+.datepicker {
+  z-index: 10000!important;
+}
+.dow, .day {
+  font-size: 13px!important;
+}

@@ -22,6 +22,7 @@ block content
               span=projects[i].title
               label.status-project.img-circle=projects[i].status
 block script
+  script(src='/javascripts/editor.js')
   script(src='/javascripts/controller/project_controller.js')
   script(src='/javascripts/controller/socket_controller.js')
   script(src='/javascripts/controller/alert_controller.js')
