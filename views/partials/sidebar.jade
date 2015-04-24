@@ -6,9 +6,19 @@
         .panel-body
           #avatar_join
             -for(var i= 0; i<userAll.length; i++)
-              li.avatar_hear.img-circle(data-join="#{userAll[i].username}" data-id="#{userAll[i]._id}")
-                a(href="http://localhost:3000/#{userAll[i].username}")
-                  img.size-image(alt='Brand', src='/uploads/images/#{userAll[i].avatar}' style="width:50px; height:50px;")
+              if project.master_id == userAll[i]._id
+                .user-join
+                  li.avatar_hear.img-circle(data-join="#{userAll[i].username}" data-id="#{userAll[i]._id}")
+                    a(href="http://localhost:3000/#{userAll[i].username}")
+                      img.img-circle.size-image(alt='Brand', src='/uploads/images/#{userAll[i].avatar}' style="width:50px; height:50px;")
+                  span.firstname-master=userAll[i].firstname
+                  i.glyphicon.glyphicon-star.icon-master
+              else
+                .user-join
+                  li.avatar_hear.img-circle(data-join="#{userAll[i].username}" data-id="#{userAll[i]._id}")
+                    a(href="http://localhost:3000/#{userAll[i].username}")
+                      img.img-circle.size-image(alt='Brand', src='/uploads/images/#{userAll[i].avatar}' style="width:50px; height:50px;")
+                  span.firstname-master=userAll[i].firstname
           .input-group#form-autocomplete
             input.form-control#autocomplete(type="text")
             input#user_id(type="hidden" name="user_id")

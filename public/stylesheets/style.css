@@ -7,6 +7,7 @@
   right: -40px;
   bottom: -40px;
   min-height: 712px;
+  height: 100%;
   background-image: url(../images/background.jpg);
   background-size: cover;
 /*  -webkit-filter: blur(5px);*/
@@ -18,6 +19,7 @@
   right: -40px;
   bottom: -40px;
   min-height: 712px;
+  height: 100%;
   background-image: url(../images/background1.jpg);
   background-size: cover;
 /*  -webkit-filter: blur(5px);*/
@@ -286,7 +288,7 @@ to {
     background: #0E74AF;
 }
 .glyphicon-star {
-    color: #FFFF00;
+  color: rebeccapurple;
 }
 .PDO {
     margin-right: 30px;
@@ -365,7 +367,7 @@ to {
     display: none!important;
 }
 .online {
-    border: 1px solid #4cae4c!important;
+    border: 2px solid #4cae4c!important;
 }
 
 #avatar_join li {
@@ -419,3 +421,26 @@ li.unsortable {
 .text-left {
   float: left!important;
 }
+.user-join {
+  text-align: center;
+  display: inline-block;
+  position: relative;
+}
+.user-join .icon-master {
+  left: 44px;
+  position: absolute;
+}
+.user-join .firstname-master {
+  top: 30px;
+  display: block;
+  left: 46px;
+  font-weight: bold;  
+}
+
+
+
+
+
+
+
+

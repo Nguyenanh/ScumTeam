@@ -59,6 +59,9 @@ $(document).ready(function(){
               color: '#808080'
           }],
       },
+      credits: {
+        enabled: false
+      },
       tooltip: {
           valueSuffix: 'Task'
       },
@@ -113,6 +116,9 @@ $(document).ready(function(){
       },
       tooltip: {
           valueSuffix: 'Task'
+      },
+      credits: {
+        enabled: false
       },
       legend: {
           layout: 'vertical',

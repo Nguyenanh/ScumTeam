@@ -18,6 +18,7 @@ var app = express();
 var done = false;
 app.configure(function () {
 // view engine setup
+app.use(favicon(__dirname + 'public/images/favicon.ico'));
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

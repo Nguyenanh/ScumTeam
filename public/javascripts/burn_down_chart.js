@@ -62,6 +62,9 @@ $(document).ready(function(){
       tooltip: {
           valueSuffix: 'Point'
       },
+      credits: {
+        enabled: false
+      },
       legend: {
           layout: 'vertical',
           align: 'right',
@@ -109,6 +112,9 @@ $(document).ready(function(){
               width: 1,
               color: '#808080'
           }]
+      },
+      credits: {
+        enabled: false
       },
       tooltip: {
           valueSuffix: 'Point'

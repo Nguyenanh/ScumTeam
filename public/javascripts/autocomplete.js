@@ -54,10 +54,10 @@ $("#autocomplete").autocomplete({
         url : location.origin+'/user/ajax_add_user',
         success : function(data) {
           $('#autocomplete').val('');
-          $('#avatar_join').append('<li class="img-circle avatar_hear" data-join='+data.username+'><img class="size-image" src="/uploads/images/'+data.avatar+'" style="width:50px; height:50px;"/></li>');
+          $('#avatar_join').append('<div class="user-join"><li class="img-circle avatar_hear" data-join='+data.username+'><img class="size-image" src="/uploads/images/'+data.avatar+'" style="width:50px; height:50px;"/></li><span class="firstname-master">'+data.firstname+'</span></div>');
           socket.emit('new_project_room', project_id);
         }
-      });     
+      });
     }
   });
 });

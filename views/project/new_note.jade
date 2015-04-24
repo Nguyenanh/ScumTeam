@@ -12,17 +12,20 @@
               textarea.form-control(rows='3' placeholder="Enter note title")
             .col-md-12
               .form-group
-                label.control-label.text-left Mockup
+                label.control-label.text-left Moscow
                 select#note-rate.form-control
                   option(value="should") Should
                   option(value="must") Must
+                  option(value="could") Could
+                  option(value="won't") Won't
             .col-md-12
               .form-group
                 label.control-label.text-left Point
                 select#note-point.form-control
-                  option(value="1") 1
-                  option(value="2") 2
-                  option(value="3") 3
-                  option(value="5") 5
+                  option(value="1") 1.0
+                  option(value="2") 2.0
+                  option(value="3") 3.0
+                  option(value="5") 5.0
+                  option(value="8") 8.0
       .modal-footer 
         a#save-note.btn.btn-primary(type='button') Save
