@@ -1,9 +1,5 @@
 li.sortable-item#note_detail(data-id = "#{noteFs[i]._id}" data-owner="#{noteFs[i].owner}")
   p=noteFs[i].content
   label=noteFs[i].rate
-    | Point-
-  if noteFs[i].estimate == ""
-    label 0
-  else
-    label=noteFs[i].estimate
-  i.glyphicon.glyphicon-time
+  label - Point:
+    =noteFs[i].estimate

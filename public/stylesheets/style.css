@@ -416,3 +416,6 @@ li.unsortable {
 .dow, .day {
   font-size: 13px!important;
 }
+.text-left {
+  float: left!important;
+}

@@ -10,9 +10,19 @@
           .row
             .col-md-12#note-content
               textarea.form-control(rows='3' placeholder="Enter note title")
-              br
-              input#note-rate.form-control(type='number', name='point' placeholder="Point of note")
-              br
-              input.form-control(type='number', name='estimate' placeholder="Estimate of note")
-              br
-              a#save-note.btn.btn-primary(type='button') Save
+            .col-md-12
+              .form-group
+                label.control-label.text-left Mockup
+                select#note-rate.form-control
+                  option(value="should") Should
+                  option(value="must") Must
+            .col-md-12
+              .form-group
+                label.control-label.text-left Point
+                select#note-point.form-control
+                  option(value="1") 1
+                  option(value="2") 2
+                  option(value="3") 3
+                  option(value="5") 5
+      .modal-footer 
+        a#save-note.btn.btn-primary(type='button') Save

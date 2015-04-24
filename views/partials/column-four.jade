@@ -1,12 +1,8 @@
 li.sortable-item#note_detail(data-id = "#{noteFos[i]._id}" data-owner="#{noteFos[i].owner}")
   p=noteFos[i].content
   label=noteFos[i].rate
-    | Point-
-  if noteFos[i].estimate == ""
-    label 0
-  else
-    label=noteFos[i].estimate
-  i.glyphicon.glyphicon-time
+  label -Point:
+  =noteFos[i].estimate
   if noteFos[i].assign == "t"
     p#assign
       img.img-circle(src='/uploads/images/#{noteFos[i].user.avatar}' style="width:20px; height:20px;")

@@ -18,8 +18,8 @@ Project.prototype.Addproject = function(data, tooltip) {
   });
 }
 
-Project.prototype.Renameproject = function (data, socket) {
-    socket.emit('rename_project', data);
+Project.prototype.Editproject = function (data, socket) {
+    socket.emit('edit_project', data);
 }
 // Project.prototype.AddprojectTest = function() {
 //     var nowTemp = new Date();

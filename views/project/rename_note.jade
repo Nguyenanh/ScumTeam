@@ -1,20 +1,30 @@
-#rename-project.modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-  .modal-dialog.modal-sm
+#rename-project.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+  .modal-dialog
       .modal-content
         .modal-header
           button.close(type='button', data-dismiss='modal', aria-label='Close')
             span(aria-hidden='true') &times;      
-          h4#myModalLabel.modal-title Rename Kanban  
+          h3#myModalLabel.modal-title 
+          i.glyphicon.glyphicon-th
+          | Edit Kanban  
         .modal-body.new-content-project
           .container-fluid
             .row
               .col-md-12
-                .form-group
+                .form-group#rename-project-title
                   label.control-label Title
-                  input.form-control(type="text" name="title" placeholder="Title" value="#{project.title}")
+                  input.form-control(type="text" name="title" value="#{project.title}")
+              .col-md-12
+                .form-group#rename-project-date-sprint
+                  label.control-label Date of a sprint
+                  input#dp1.form-control.input-sm(type="text" placeholder="Choose Date" name="deadline" readonly="readonly")
+              .col-md-12#rename-project-pdo
                 .form-group
-                  input.form-control(type='date', name='deadline' value="#{project.deadline}")
-                .form-group
-                  input.form-control(type='number', name='sprint' value="#{project.sprint}")
+                  label.control-label PDO
+                  textarea.form-control#pdo-textarea(name="content_pdo" rows=5 placeholder="Infomation Project")=project.pdo
+              .col-md-12
+                .form-group#rename-project-sprint
+                  label.control-label Sprint
+                  input.form-control(name="sprint" type="number" placeholder="Enter number sprint" value="#{project.sprint}")
         .modal-footer 
-          button.btn.btn-primary#save-rename-project(type='button') Rename
+          button.btn.btn-primary#save-rename-project(type='button') Edit

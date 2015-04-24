@@ -19,6 +19,17 @@ exports.insertSprint = function(document, callback){
     }
   });
 };
+
+exports.removeSprint = function(project_id, callback){
+  sprints.remove({project_id: new ObjectID(project_id)}, function(errItem, resItem) {
+    if(resItem){
+      callback(null, resItem);
+    }else{
+      callback(null, null);
+    }
+  });
+};
+
 exports.getNumberSprint = function(date_current, project_id, callback){
   sprints.findOne({start: {$lte : date_current}, end: {$gte: date_current}, project_id : new ObjectID(project_id)},  function(errItem, resItem){
     if(resItem){

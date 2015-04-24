@@ -37,7 +37,6 @@ module.exports = function(app){
     var day_end_project = new Date(document.start_date);
 
     day_end_project.setDate(day_end_project.getDate() + (count_date_of_sprint*parseInt(document.sprint)));
-    console.log(day_end_project);
     document.deadline = day_end_project.getFullYear()+"/"+(day_end_project.getMonth()+1) +"/"+day_end_project.getDate();
     PJ.insertProject(document, function(errProject, resProject){ 
       for(var i = 1; i <= parseInt(document.sprint); i++) {

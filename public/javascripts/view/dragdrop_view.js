@@ -18,10 +18,10 @@ $(document).ready(function(){
               }else {
                 var disable_class = "unsortable";
               }
-              $(this).find('ul').append('<li data-id="'+data.note_news[i]._id+'" data-owner="'+data.note_news[i].owner+'" id="note_detail" class="'+disable_class +' sortable-item ui-sortable-handle"><p>'+data.note_news[i].content+'</p><label>'+data.note_news[i].rate+'Point-</label><label>'+data.note_news[i].estimate+'</label><i class="glyphicon glyphicon-time"></i><p id="assign"><img src="/uploads/images/'+data.note_news[i].user.avatar+'" style="width:20px; height:20px;" class="img-circle"><label>'+data.note_news[i].user.username+'</label></p></li>');
+              $(this).find('ul').append('<li data-id="'+data.note_news[i]._id+'" data-owner="'+data.note_news[i].owner+'" id="note_detail" class="'+disable_class +' sortable-item ui-sortable-handle"><p>'+data.note_news[i].content+'</p><label>'+data.note_news[i].rate+'</label><label> -Point:'+data.note_news[i].estimate+'</label><p id="assign"><img src="/uploads/images/'+data.note_news[i].user.avatar+'" style="width:20px; height:20px;" class="img-circle"><label>'+data.note_news[i].user.username+'</label></p></li>');
             }
             else
-              $(this).find('ul').append('<li data-id="'+data.note_news[i]._id+'" data-owner="'+data.note_news[i].owner+'" id="note_detail" class="sortable-item ui-sortable-handle"><p>'+data.note_news[i].content+'</p><label>'+data.note_news[i].rate+'Point-</label><label>'+data.note_news[i].estimate+'</label><i class="glyphicon glyphicon-time"></i></li>');
+              $(this).find('ul').append('<li data-id="'+data.note_news[i]._id+'" data-owner="'+data.note_news[i].owner+'" id="note_detail" class="sortable-item ui-sortable-handle"><p>'+data.note_news[i].content+'</p><label>'+data.note_news[i].rate+'</label><label>-Point:'+data.note_news[i].estimate+'</label></li>');
           };
         };
         //Old Note
@@ -34,10 +34,10 @@ $(document).ready(function(){
               }else {
                 var disable_class = "unsortable";
               }
-              $(this).find('ul').append('<li data-id="'+data.note_olds[i]._id+'" data-owner="'+data.note_olds[i].owner+'" id="note_detail" class="'+ disable_class +' sortable-item ui-sortable-handle"><p>'+data.note_olds[i].content+'</p><label>'+data.note_olds[i].rate+'Point-</label><label>'+data.note_olds[i].estimate+'</label><i class="glyphicon glyphicon-time"></i><p id="assign"><img src="/uploads/images/'+data.note_olds[i].user.avatar+'" style="width:20px; height:20px;" class="img-circle"><label>'+data.note_olds[i].user.username+'</label></p></li>');
+              $(this).find('ul').append('<li data-id="'+data.note_olds[i]._id+'" data-owner="'+data.note_olds[i].owner+'" id="note_detail" class="'+ disable_class +' sortable-item ui-sortable-handle"><p>'+data.note_olds[i].content+'</p><label>'+data.note_olds[i].rate+'</label><label>-Point:'+data.note_olds[i].estimate+'</label><p id="assign"><img src="/uploads/images/'+data.note_olds[i].user.avatar+'" style="width:20px; height:20px;" class="img-circle"><label>'+data.note_olds[i].user.username+'</label></p></li>');
             }
             else
-              $(this).find('ul').append('<li data-id="'+data.note_olds[i]._id+'" data-owner="'+data.note_olds[i].owner+'" id="note_detail" class="sortable-item ui-sortable-handle"><p>'+data.note_olds[i].content+'</p><label>'+data.note_olds[i].rate+'Point-</label><label>'+data.note_olds[i].estimate+'</label><i class="glyphicon glyphicon-time"></i></li>');
+              $(this).find('ul').append('<li data-id="'+data.note_olds[i]._id+'" data-owner="'+data.note_olds[i].owner+'" id="note_detail" class="sortable-item ui-sortable-handle"><p>'+data.note_olds[i].content+'</p><label>'+data.note_olds[i].rate+'</label><label>-Point:'+data.note_olds[i].estimate+'</label></li>');
           };
         };
       });

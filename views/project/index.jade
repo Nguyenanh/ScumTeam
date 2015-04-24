@@ -15,6 +15,7 @@ block content
         input(type="hidden" value="#{sprint._id}" name="sprint_id")
         input(type="hidden" value="#{sprint.number}" name="sprint_number")
         input(type="hidden" value="#{project.count_date_of_sprint}" name="count_date_of_sprint")
+        input(type="hidden" value="#{project.sprint}" name="count_sprint_project")
         label.label.label-danger Sprint &#32;
           =sprint.number
           | &#32;
@@ -91,9 +92,9 @@ block content
     input(type="hidden" value="#{countPoints}" name="count_point")
     input(type="hidden" value="#{project.master_id}" name="master_project")
 block script
+  script(src='/javascripts/editor.js')
   script(src='/javascripts/user_story_chart.js')
   script(src='/javascripts/burn_down_chart.js')
-  script(src='/js/jquery-ui.js')
   script(src='/javascripts/controller/note_controller.js')
   script(src='/javascripts/controller/user_story_controller.js')
   script(src='/javascripts/controller/socket_controller.js')
