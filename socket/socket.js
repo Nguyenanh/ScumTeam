@@ -189,6 +189,8 @@ module.exports = function(io, people_status){
     socket.on('notification', function (data_noti) {
       var document = data_noti;
       document.readed = 0;
+      var d = new Date();
+      document.date = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
       NO.insertNotification(document, function(errNoti, resNoti){
         NO.getallNotification(data_noti.recent_id, function(errNotiCount, resNotiCount){
           io.sockets.emit(data_noti.recent_id, resNotiCount)

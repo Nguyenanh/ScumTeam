@@ -492,5 +492,45 @@ li.unsortable {
   z-index: 100;
   background-color: red;
 }
+.glyphicon-bell{
+  font-size: 20px;
+}
+.kanban-noti {
+  width: 280px;
+  min-height: 70px;
+}
+#menu-head .kanban-noti li {
+  border: 1px solid #fff;
+  padding: 10px 15px;
+  position: relative;
+}
+#menu-head .kanban-noti li:hover {
+  background-color: #E3E3E3;
+}
+#menu-head .kanban-noti a {
+  text-decoration: underline;
+  display: inline-block;
+  padding: 0;
+  color: #337ab7;
+}
+#menu-head .kanban-noti a:hover {
+  background-color:transparent;
+}
+.none-read{
+  background-color: #E3E3E3;
+}
+.timeago-noti {
+  position: absolute;
+  right: 2px;
+  bottom: 7px;
+  font-size: 12px;
+}
+
+
+
+
+
+
+
 
 

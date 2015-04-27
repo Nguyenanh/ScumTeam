@@ -33,10 +33,11 @@ html
             a.navbar-brand(href='/',style="padding: 0")
               img(alt='Brand', src='/images/logo.png' style="width: 50px")
           ul.nav.navbar-nav.navbar-right#menu-head
-            li
-              a.noti_count(href="#")
+            li.noti_toggle
+              a.noti_count.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
                 span.badge
                 i.glyphicon.glyphicon-bell
+              ul.dropdown-menu.kanban-noti(role='menu')
             li.avatar_hear.img-circle
               if user.avatar == null
                 label=user.firstname

@@ -7,6 +7,7 @@ $(document).ready(function() {
   var user_id_current = $('input[name=socket_user_id]').val();
   var user_name_current = $('input[name=socket_user_username]').val();
   var project_master_id = $('#param_project input[name=master_project]').val();
+  var project_name = $('.run-title-project').text();
 $("#autocomplete").autocomplete({
   source: function(request, response){
     var list_user = [];
@@ -68,23 +69,33 @@ $("#autocomplete").autocomplete({
                 socket.emit("remove_user_in_project", data_user);
                 var data_noti = {
                   recent_id : data_user.user_id,
+                  send_username : user_name_current,
+                  message : "Remove You into Project",
+                  type : {
+                    name: "Add project",
+                    project_id : project_id,
+                    project_name : project_name,
+                  },
                 };
                 notification.add_noti(data_noti, socket);
-              }
+              },
+            /*---- end onConfirm -----*/
             });
           }else{
             $('#avatar_join').append('<div class="user-join"><li class="img-circle avatar_hear" data-join='+data.username+' data-id="'+data._id+'"><img class="size-image" src="/uploads/images/'+data.avatar+'" style="width:50px; height:50px;"/></li><span class="firstname-master">'+data.firstname+'</span></div>');
           }
           socket.emit('new_project_room', project_id);
-
           var data_noti = {
-            type : "Project",
-            id : project_id,
-            recent : username,
-            send : user_name_current,
             recent_id : user_id,
+            send_username : user_name_current,
+            message : "Invite You into Project",
+            type : {
+              name: "Add project",
+              project_id : project_id,
+              project_name : project_name,
+            },
           };
-          notification.add_noti(data_noti, socket)
+          notification.add_noti(data_noti, socket);
         }
       });
     }
@@ -99,6 +110,13 @@ $("#autocomplete").autocomplete({
       socket.emit("remove_user_in_project", data_user);
       var data_noti = {
         recent_id : data_user.user_id,
+        send_username : user_name_current,
+        message : "Remove You into Project",
+        type : {
+          name: "Remove project",
+          project_id : project_id,
+          project_name : project_name,
+        },
       };
       notification.add_noti(data_noti, socket);
     },

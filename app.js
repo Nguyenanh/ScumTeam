@@ -98,6 +98,7 @@ var io = require('socket.io')(server);
 var people_status = [];
 require('./socket/socket')(io, people_status);
 require('./routes/login')(app);
+require('./routes/notification')(app);
 require('./routes/register')(app);
 require('./routes/user')(app, people_status);
 require('./routes/project')(app);
