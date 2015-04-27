@@ -19,9 +19,18 @@
                     a(href="http://localhost:3000/#{userAll[i].username}")
                       img.img-circle.size-image(alt='Brand', src='/uploads/images/#{userAll[i].avatar}' style="width:50px; height:50px;")
                   span.firstname-master=userAll[i].firstname
+                  a.remove-user-in-project(data-toggle="confirmation" href="#" data-singleton="true" data-popout="true")
+                    i.glyphicon.glyphicon-remove
           .input-group#form-autocomplete
             input.form-control#autocomplete(type="text")
             input#user_id(type="hidden" name="user_id")
             input#project_id(type="hidden" name="project_id" value="#{project._id}")
             span.input-group-btn
               button.btn.btn-default#add_user_project(type="submit") Add
+        .panel-heading Chat
+        .panel-body(style='padding:0;')
+          #content(style='width: 268px; height: 210px; margin: 0 0 20px 0; overflow-y: auto;')
+          .controls.input-group
+            input.form-control.field(style='width: 211px;')
+            input.btn.btn-default.send(type='button', value='send')
+

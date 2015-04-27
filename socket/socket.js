@@ -4,6 +4,7 @@ var CM = require('../model/comments');
 var PJ = require('../model/projects');
 var US = require('../model/users');
 var SP = require('../model/sprints');
+var NO = require('../model/notifications');
 var ObjectID = Mogodb.ObjectID;
 module.exports = function(io, people_status){
   io.on('connection', function (socket) {
@@ -39,6 +40,8 @@ module.exports = function(io, people_status){
 /*********End Drag Drop **************/  
 /*********New Comment ***************/
     socket.on('comment_socket', function (data) {
+      var d = new Date();
+      data.comment.created_at = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
       CM.insertComment(data.comment, function(errComment, resComment) {
         io.sockets.emit(data.project_id+'_comment_socket', resComment[0]);
       });
@@ -134,5 +137,82 @@ module.exports = function(io, people_status){
         });
       });
     });
+
+    socket.on('update_title_note', function (data_note) {
+      var document ={
+        content : data_note.note_title
+      }
+      NT.updateNote(data_note.note_id, document, function (errNoteUpdate, resNoteUpdate){
+        NT.getNote(data_note.note_id, function (errNote, resNote){
+          io.sockets.emit(data_note.project_id+data_note.project_sprint+data_note.note_id, resNote);
+        })
+      });
+    });
+
+    socket.on('update_moscow_note', function (data_note) {
+      var document ={
+        rate : data_note.note_moscow
+      }
+      NT.updateNote(data_note.note_id, document, function (errNoteUpdate, resNoteUpdate){
+        NT.getNote(data_note.note_id, function (errNote, resNote){
+          io.sockets.emit(data_note.project_id+data_note.project_sprint+data_note.note_id, resNote);
+        })
+      });
+    });
+
+    socket.on('update_point_note', function (data_note) {
+      var document ={
+        estimate : data_note.note_point
+      }
+      NT.updateNote(data_note.note_id, document, function (errNoteUpdate, resNoteUpdate){
+        NT.getNote(data_note.note_id, function (errNote, resNote){
+          io.sockets.emit(data_note.project_id+data_note.project_sprint+data_note.note_id, resNote);
+        })
+      });
+    });
+    socket.on('update_description_note', function (data_note) {
+      var document = {
+        description : data_note.note_description,
+      }
+      NT.updateNote(data_note.note_id, document, function (errNoteUpdate, resNoteUpdate){
+        NT.getNote(data_note.note_id, function (errNote, resNote){
+          io.sockets.emit(data_note.project_id+data_note.project_sprint+data_note.note_id, resNote);
+        })
+      });
+    });
+
+    socket.on('send', function (data) {
+      io.sockets.emit('message', data);
+    });
+
+    /*--------------------------------------------------*/
+    socket.on('notification', function (data_noti) {
+      var document = data_noti;
+      document.readed = 0;
+      NO.insertNotification(document, function(errNoti, resNoti){
+        NO.getallNotification(data_noti.recent_id, function(errNotiCount, resNotiCount){
+          io.sockets.emit(data_noti.recent_id, resNotiCount)
+        });
+      });
+    });
+
+    /*--------------------------------------------------*/
+    socket.on('get_all_notification', function(user_id) {
+      NO.getallNotification(user_id, function(errNoti, resNoti){
+        io.sockets.emit(user_id, resNoti)
+      });
+    });
+    /*--------------------------------------------------*/
+    socket.on('remove_user_in_project', function (data_user) {
+      PJ.removeUserProject(data_user.project_id, data_user.user_id, function(errProject, resProject){
+        US.removeProjectUser(data_user.user_id, data_user.project_id, function(errUserP, resUserP){
+          US.getUser(data_user.user_id, function(errUser, resUser){
+            io.sockets.emit(data_user.project_id+data_user.user_id, resUser);
+            io.sockets.emit(data_user.project_id+"_remove_user", resUser);
+          });
+        });
+      });
+    });
+
   });
 }

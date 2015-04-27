@@ -38,6 +38,7 @@ exports.updateProject = function(project_id, document, callback) {
     }
   });
 };
+
 exports.addUserProject = function(project_id, document, callback) {
   projects.update({_id: new ObjectID(project_id)}, { $push: { user_ids: document } }, function(errItem, resItem){
     if(resItem){
@@ -47,3 +48,13 @@ exports.addUserProject = function(project_id, document, callback) {
     }
   });
 };
+
+exports.removeUserProject = function(project_id, user_id, callback) {
+  projects.update({_id: new ObjectID(project_id)}, {$pull: {user_ids: new ObjectID(user_id)}}, function(errItem, resItem) {
+    if(resItem){
+      callback(null, resItem);
+    }else{
+      callback(null, null);
+    }
+  });
+}

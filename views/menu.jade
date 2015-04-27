@@ -6,6 +6,8 @@ html
     script(src='/js/jquery-ui.js')
     script(src='/js/bootstrap-datepicker.min.js')
     script(src='/javascripts/view/brower_view.js')
+    script(src='/js/moment.js')
+    script(src='/js/livestamp.min.js')
     link(rel='stylesheet', href='/css/bootstrap-wysihtml5.css')
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/datepicker.min.css')
@@ -19,6 +21,8 @@ html
     script(src='/js/exporting.js')
     script(src='/js/bootstrap-wysihtml5.js')
     script(src='/javascripts/datepicker-custom.js')
+    script(src='/js/bootstrap-confirmation.min.js')
+    script(src='/javascripts/view/notification_view.js')
   body
     input(type="hidden" name="socket_user_id" value="#{user._id}")
     input(type="hidden" name="socket_user_avatar" value="#{user.avatar}")
@@ -29,6 +33,10 @@ html
             a.navbar-brand(href='/',style="padding: 0")
               img(alt='Brand', src='/images/logo.png' style="width: 50px")
           ul.nav.navbar-nav.navbar-right#menu-head
+            li
+              a.noti_count(href="#")
+                span.badge
+                i.glyphicon.glyphicon-bell
             li.avatar_hear.img-circle
               if user.avatar == null
                 label=user.firstname

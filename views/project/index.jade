@@ -92,6 +92,7 @@ block content
     input(type="hidden" value="#{countPoints}" name="count_point")
     input(type="hidden" value="#{project.master_id}" name="master_project")
 block script
+  script(src='/javascripts/chat.js')
   script(src='/javascripts/editor.js')
   script(src='/javascripts/user_story_chart.js')
   script(src='/javascripts/burn_down_chart.js')
@@ -102,6 +103,7 @@ block script
   script(src='/javascripts/controller/project_controller.js')
   script(src='/javascripts/controller/comment_controller.js')
   script(src='/javascripts/controller/tooltip_controller.js')
+  script(src='/javascripts/controller/notification_controller.js')    
   script(src='/javascripts/view/note_view.js')
   script(src='/javascripts/view/dragdrop_view.js')
   script(src='/javascripts/toggle_sidebar.js')

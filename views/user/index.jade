@@ -12,9 +12,9 @@ block content
           include popup_new_project
     .row.list-project
       -for(var i =0; i<projects.length; i++)
-        .col-md-3
+        .col-md-3(data-project="#{projects[i]._id}")
           if projects[i].master_id == user._id
-            a.back-ground-red(href="/project/#{projects[i]._id}" data-toggle="tooltip" title="#{projects[i].master}")
+            a.back-ground-red(href="/project/#{projects[i]._id}"  data-toggle="tooltip" title="#{projects[i].master}")
               span=projects[i].title
               label.status-project.img-circle=projects[i].status
           else

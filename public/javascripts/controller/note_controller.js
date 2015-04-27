@@ -43,17 +43,18 @@ Note.prototype.Detail = function(note_id) {
     url: location.origin+"/note/ajax_node_detail",
     success: function(data) {
       $('#note-detail-popup .modal-title').text(data.note.content);
-      $('#note-detail-popup .point').text(data.note.rate+" Point");
+      $('#note-detail-popup .point').text(data.note.rate);
       $('#note-detail-popup .estimate').text(data.note.estimate);
-      $('#note-detail-popup .estimate').append('<i class="glyphicon glyphicon-time"></i>');
       if(data.note.user != null) {
         $('#note-detail-popup .assige').remove();
-        $('#note-detail-popup .modal-header').append('<span class="assige label label-warning">'+data.note.user.username+'</span>');
+        $('#note-detail-popup #note_assign_edit').append('<span class="assige label label-warning">'+data.note.user.username+'</span>');
       }
+      $('#note-detail-popup .description').text(data.note.description);
       if(data.comments != "") {
         $('#list-comment .comment-item').remove();
         for (var i = 0; i<data.comments.length; i++) {
-          $('#list-comment').append('<div class="comment-item"><img src="/uploads/images/'+data.comments[i].user.avatar+'" style="width:30px; height:30px;" class="img-circle"><a href="/'+data.comments[i].user.username+'"><label class="author">'+data.comments[i].user.username+'</label></a><p class="content">'+data.comments[i].content+'</p></div>');
+          $('#list-comment').append('<div class="comment-item"><img src="/uploads/images/'+data.comments[i].user.avatar+'" style="width:30px; height:30px;" class="img-circle"><a href="/'+data.comments[i].user.username+'"><label class="author">'+data.comments[i].user.username+'</label></a><p class="content">'+data.comments[i].content+'</p><span class="timeago" data-livestamp="'+data.comments[i].created_at+'"></span></div>');
+          // $('#list-comment .comment-item').append('<p class="timeago-comment">'+$.timeago(new Date(data.comments[i].created_at))+'</p>');
         };
       }
       $('#note-detail-popup').modal('show');
@@ -69,4 +70,17 @@ Note.prototype.get_note_done = function(data_chart, callback) {
      callback(data);
     }
   });
+}
+
+Note.prototype.Update_title = function(data_note, socket) {
+  socket.emit('update_title_note', data_note);
+}
+Note.prototype.Update_moscup = function(data_note, socket) {
+  socket.emit('update_moscow_note', data_note);
+}
+Note.prototype.Update_point = function(data_note, socket) {
+  socket.emit('update_point_note', data_note);
+}
+Note.prototype.update_description = function(data_note, socket) {
+  socket.emit('update_description_note', data_note)
 }

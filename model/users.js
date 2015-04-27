@@ -91,3 +91,12 @@ exports.addProjectUser = function(user_id, document, callback) {
 		}
 	});
 };
+exports.removeProjectUser = function(user_id, project_id, callback) {
+  users.update({_id: new ObjectID(user_id)}, {$pull: {project_ids: new ObjectID(project_id)}}, function(errItem, resItem) {
+    if(resItem){
+      callback(null, resItem);
+    }else{
+      callback(null, null);
+    }
+  });
+}

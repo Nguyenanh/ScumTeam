@@ -3,10 +3,16 @@
         .modal-content
           .modal-header
             button.close(type='button', data-dismiss='modal', aria-label='Close')
-              span(aria-hidden='true') &times;       
-            h4.modal-title
-            span.point.label.label-primary
-            span.estimate.label.label-info
+              span(aria-hidden='true') &times; 
+            #note_edit      
+              h4.modal-title
+            #note_moscow_edit 
+              span.point.label.label-primary
+            #note_point_edit 
+              span.estimate.label.label-info
+            #note_assign_edit
+            #note_description_edit
+              p.description
           .modal-body
             .row
               .col-md-10
@@ -18,7 +24,7 @@
                 #list-comment
               .col-md-2
                 h4 Action
-                a.col-md-12.btn.btn-primary Remove Note
-                a.col-md-12.btn.btn-primary Change Title
-                a.col-md-12.btn.btn-primary Status
-                a.col-md-12.btn.btn-primary Edit
+                a.col-md-12.btn.btn-primary#rename_note Rename
+                a.col-md-12.btn.btn-primary#update_moscow_note Moscow
+                a.col-md-12.btn.btn-primary#update_point_note Point
+                a.col-md-12.btn.btn-primary#update_description_note Description

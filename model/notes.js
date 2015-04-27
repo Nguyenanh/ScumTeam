@@ -91,6 +91,5 @@ exports.getCountPoint = function(project_id, sprint_number, callback){
       callback(null, result);
     }
   });
- 
 };
 

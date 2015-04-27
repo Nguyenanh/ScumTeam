@@ -436,11 +436,61 @@ li.unsortable {
   left: 46px;
   font-weight: bold;  
 }
-
-
-
-
-
-
+#note_edit textarea {
+  max-width: 300px;
+}
+#note_edit button, #note_moscow_edit button, #note_point_edit button, #note_description_edit button {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+#note_edit button:last-child, #note_moscow_edit button:last-child, 
+#note_point_edit button:last-child{
+  margin-right: 0px;
+}
+#note_moscow_edit, #note_point_edit, #note_assign_edit {
+  display: inline-block;
+}
+#note_moscow_edit select {
+  max-width: 200px;
+}
+#note_point_edit select {
+  max-width: 200px;
+}
+.comment-item {
+  position: relative;
+}
+.comment-item a {
+  display: inline-block;
+  line-height: 0;
+}
+.comment-item p {
+  display: inline-block;
+}
+.timeago{
+  position: absolute;
+  left: 32px;
+  bottom: -1px;
+  font-size: 12px;
+}
+.remove-user-in-project {
+  left: 44px;
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+}
+.popover {
+  width: 123px;
+}
+.noti_count {
+  position: relative;
+}
+.noti_count span {
+  position: absolute;
+  top: 0;
+  left: -3px;
+  z-index: 100;
+  background-color: red;
+}
 
 

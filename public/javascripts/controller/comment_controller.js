@@ -9,3 +9,6 @@ Comment.prototype.add_comment = function(new_comment, socket, project_id) {
   $('#form_comment textarea').val("");
   socket.emit('comment_socket', data);
 }
+Comment.prototype.list_comment = function() {
+  
+}
