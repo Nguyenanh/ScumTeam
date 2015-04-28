@@ -85,6 +85,7 @@ module.exports = function(app){
                       NT.getCountPoint(req.param('project_id'), resSprint.number,  function(errCountPoint, resCountPoint){
                         if (resCountPoint[0]) {
                           var countpoints =  resCountPoint[0].estimate;
+                          console.log(resCountPoint);
                         }
                         else {
                           var countpoints = 0;

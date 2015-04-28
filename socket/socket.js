@@ -6,13 +6,28 @@ var US = require('../model/users');
 var SP = require('../model/sprints');
 var NO = require('../model/notifications');
 var ObjectID = Mogodb.ObjectID;
-module.exports = function(io, people_status){
+module.exports = function(io, people_status, status){
   io.on('connection', function (socket) {
-    socket.on('disconnect', function(){
-      console.log('user disconnected');
+    socket.on('list_people_status', function (username) {
+      socket.username = username;
+      people_status[username] = username;
+      status = false;
+      io.sockets.emit('list_people_online', people_status);
+      console.log(status);
     });
-    
-    io.sockets.emit('people_status', people_status);
+
+    socket.on('disconnect', function(){
+      setTimeout(function () {
+        console.log(status);
+        if(status) {
+          delete people_status[socket.username];
+          io.sockets.emit('list_people_online', people_status);
+        }
+      }, 10000);
+      io.sockets.emit('list_people_online', people_status);
+      status = true;
+      console.log(status);
+    });
 
     socket.on('create_new_note', function (data) {
       io.sockets.emit('create_new_note', data);
@@ -211,6 +226,7 @@ module.exports = function(io, people_status){
           US.getUser(data_user.user_id, function(errUser, resUser){
             io.sockets.emit(data_user.project_id+data_user.user_id, resUser);
             io.sockets.emit(data_user.project_id+"_remove_user", resUser);
+            io.sockets.emit('remove_project_dashboard', data_user.project_id);
           });
         });
       });

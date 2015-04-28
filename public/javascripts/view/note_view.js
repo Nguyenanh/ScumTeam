@@ -19,13 +19,14 @@ $(document).ready(function() {
   var project_sprint_current = parseInt($('.project-run input[name=count_sprint_project]').val());
   var socketconnect = new SocketConnect();
   var socket = socketconnect.connect();
-  socket.on('people_status', function (list_user){
+  socket.on('list_people_online', function (list_user) {
+    var list_user_online = Object.keys(list_user)
     $('#avatar_join li').each(function (index){
-      if($.inArray($(this).data('join'), list_user) > -1)
+      if($.inArray($(this).data('join'), list_user_online) > -1)
         $(this).addClass('online');
       else
         $(this).removeClass('online');
-    })
+    });
   });
 
   socket.on(project_id_req.project_id+user_id, function (data){
@@ -203,7 +204,7 @@ $(document).ready(function() {
         project_id : project_id_req.project_id,
         project_sprint :$('.project-run input[name=sprint_number]').val(),
         note_id : note_id,
-        note_point : $('#note_point_edit select').val(),
+        note_point : parseInt($('#note_point_edit select').val()),
       };
       note.Update_point(data_note, socket);
     });

@@ -95,12 +95,13 @@ app.post('/uploadphoto',function(req, res){
   }
 });
 var io = require('socket.io')(server);
-var people_status = [];
-require('./socket/socket')(io, people_status);
+var people_status = {};
+var status = false;
+require('./socket/socket')(io, people_status, status);
 require('./routes/login')(app);
 require('./routes/notification')(app);
 require('./routes/register')(app);
-require('./routes/user')(app, people_status);
+require('./routes/user')(app);
 require('./routes/project')(app);
 require('./routes/comment')(app);
 require('./routes/note')(app);

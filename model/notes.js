@@ -37,7 +37,7 @@ exports.getAllNoteColThird = function(number, project_id, callback) {
 }
 /***get all note colum four **/
 exports.getAllNoteColFour = function(number, project_id, callback) {
-  notes.find({project_id: project_id, column: 4, sprint_number :number }).toArray(
+  notes.find({$and: [{project_id: project_id}, {column: 4}, {sprint_number :number }]}).toArray(
     function(e, res) {
       if(e) callback(e)
       else callback(null, res)

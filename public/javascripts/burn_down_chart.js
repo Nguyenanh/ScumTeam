@@ -21,12 +21,14 @@ $(document).ready(function(){
     date_of_sprint.push(format_date);
   };
   var count_point = parseInt($('#param_project input[name=count_point]').val());
+  console.log(count_point);
   /*----------------------------------------------------------------------------------*/
   var count_user_story = parseInt($('#param_project input[name=count_note]').val());
 
   note.get_note_done(dash_chart, function(list_note_done) {
     var note_number_of_date = [];
     note_number_of_date.push(count_point);
+    console.log(count_point);
     var total_note = [];
     total_note[0] = 0;
     for (var i = 1; i < date_of_sprint.length; i++) {

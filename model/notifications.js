@@ -18,7 +18,9 @@ exports.getallNotification = function (user_id, callback) {
   );
 };
 exports.allNotification = function (user_id, callback) {
-  notifications.find({recent_id: user_id}).toArray(
+  notifications.find({recent_id: user_id}, { limit : 15 })
+  .sort({date: -1})
+  .toArray(
     function(e, res) {
       if(e) callback(e);
       else callback(null, res);

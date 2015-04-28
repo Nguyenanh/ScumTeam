@@ -6,7 +6,7 @@ $(document).ready(function() {
   var socket = socketconnect.connect();
   tooltip.show();
   socket.on('new_project_room', function (data) {
-    $('.list-project').append('<div class="col-md-3"><a href="/project/'+ data.project._id+'" class="back-ground-blue" data-toggle="tooltip" title="'+data.user.firstname+'"><span>'+data.project.title+'</span><label class="status-project img-circle">'+data.project.status+'</label></a></div>');
+    $('.list-project').append('<div class="col-md-3" data-project="'+data.project._id+'"><a href="/project/'+ data.project._id+'" class="back-ground-blue" data-toggle="tooltip" title="'+data.user.firstname+'"><span>'+data.project.title+'</span><label class="status-project img-circle">'+data.project.status+'</label></a></div>');
     tooltip.show();
   });
   $('#new-project').on('click', '#save-new-project', function(){

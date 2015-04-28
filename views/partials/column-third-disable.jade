@@ -3,7 +3,6 @@ li.sortable-item.unsortable#note_detail(data-id = "#{noteTs[i]._id}" data-owner=
   label=noteTs[i].rate
   label -Point:
     =noteTs[i].estimate
-  i.glyphicon.glyphicon-time
   if noteTs[i].assign == "t"
     p#assign
       img.img-circle(src='/uploads/images/#{noteTs[i].user.avatar}' style="width:20px; height:20px;")

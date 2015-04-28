@@ -2,15 +2,10 @@ var Mogodb  = require('../mongodb/connection');
 var US = require('../model/users');
 var PJ = require('../model/projects');
 var ObjectID = Mogodb.ObjectID;
-module.exports = function(app, people_status){
+module.exports = function(app){
 	app.get('/', function(req, res){
 		if(req.session.user){
 			US.getUser(req.session.user, function(errUser, resUser){
-				for(var i =0; i<=people_status.length; i++){
-				 	if(resUser.username != people_status[i])
-						people_status.push(resUser.username);
-						break;
-				}
 				PJ.getAllProject(resUser.project_ids, function(errListProject, resListProject){
 					res.render('user/index',{
 						title : "Dashboard",
@@ -26,11 +21,6 @@ module.exports = function(app, people_status){
 
 	app.get('/logout', function(req, res){
 		US.getUser(req.session.user, function(errUser, resUser){
-			console.log(resUser);
-			for(var i =0; i<people_status.length; i++){
-				if(resUser.username == people_status[i])
-					people_status.splice(i, 1);
-			}
 			delete req.session.user
 			res.redirect('/');
 		});
