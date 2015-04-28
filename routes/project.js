@@ -75,6 +75,12 @@ module.exports = function(app){
       var new_date = new Date();
       var date_current = new_date.getFullYear()+"/"+(new_date.getMonth()+1)+"/"+new_date.getDate();
       SP.getNumberSprint(date_current, req.param('project_id'), function(errSprint, resSprint){
+        /*-----------move note to next sprint----------*/
+        if(resSprint.number > 1){
+          var sprint_number = parseInt(resSprint.number - 1);
+          NT.updateMoveNote(req.param('project_id'), sprint_number, function(errNoteMove, resNoteMove){});
+        }
+        /*-----------end move note---------------------*/
         US.getUser(req.session.user, function(errUser, resUser){
           NT.getAllNoteColFirst(resSprint.number, req.param('project_id'), function(errNoteF, resNoteF){
             NT.getAllNoteColSecond(resSprint.number, req.param('project_id'), function(errNoteS, resNoteS){

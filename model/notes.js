@@ -92,4 +92,13 @@ exports.getCountPoint = function(project_id, sprint_number, callback){
     }
   });
 };
+exports.updateMoveNote = function(project_id, sprint_number, callback){
+  notes.update({project_id: project_id, sprint_number: sprint_number, column: {$ne : 4}}, {$set: {sprint_number: sprint_number+1}}, function(errItem, resItem){
+    if(resItem){
+      callback(null, resItem);
+    }else{
+      callback(null, null);
+    }
+  });
+}
 

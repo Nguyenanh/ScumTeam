@@ -49,10 +49,6 @@ $(document).ready(function() {
     }
   });
 
-  socket.on(project_id_req.project_id+'_comment_socket', function (data) {
-    $('#list-comment').append('<div class="comment-item"><img src="/uploads/images/'+data.user.avatar+'" style="width:30px; height:30px;" class="img-circle"><a href="/'+data.user.username+'"><label class="author">'+data.user.username+'</label></a><p class="content">'+data.content+'</p><span class="timeago" data-livestamp="'+data.created_at+'"></span></div>');
-  });
-
   socket.on(project_id_req.project_id+'_edit_project', function (data) {
     window.location.reload();
   });
@@ -94,6 +90,11 @@ $(document).ready(function() {
     var note_id = $(this).data('id');
     $('#note-detail-popup input[name=note_id_popup]').val($(this).data('id'));
     note.Detail($(this).data('id'));
+
+    socket.on(project_id+note_id+'_comment_socket', function (data) {
+      $('#list-comment').append('<div class="comment-item"><img src="/uploads/images/'+data.user.avatar+'" style="width:30px; height:30px;" class="img-circle"><a href="/'+data.user.username+'"><label class="author">'+data.user.username+'</label></a><p class="content">'+data.content+'</p><span class="timeago" data-livestamp="'+data.created_at+'"></span></div>');
+    });
+    /*--------------------------*/
     socket.on(project_id+sprint_number+note_id, function (data){
       $('#note_edit textarea').remove();
       $('#note_edit #save-rename-note').remove();
