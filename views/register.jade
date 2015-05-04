@@ -13,16 +13,18 @@ block content
               | &#x9;&#x9;&#x9;
               .row
                 .col-sm-12
-                if messages != ""
-                  .alert.alert-success.notice(role='messages')
-                    button.close(type='button', data-dismiss='alert', aria-label='Close')
-                        span(aria-hidden='true') &times; 
-                    strong=messages
-                if errors != ""
-                  .alert.alert-danger.notice(role='errors')
-                    button.close(type='button', data-dismiss='alert', aria-label='Close')
-                        span(aria-hidden='true') &times; 
-                    strong=errors
+                if messages.length > 0
+                  -for(var i =0; i < messages.length; i++)
+                    .alert.alert-success.notice(role='messages')
+                      button.close(type='button', data-dismiss='alert', aria-label='Close')
+                          span(aria-hidden='true') &times; 
+                      strong=messages[i]
+                if errors.length > 0
+                  -for(var i =0; i < errors.length; i++)
+                    .alert.alert-danger.notice(role='errors')
+                      button.close(type='button', data-dismiss='alert', aria-label='Close')
+                          span(aria-hidden='true') &times; 
+                      strong=errors[i]
                 .col-xs-12.col-sm-6.col-md-6
                   .form-group
                     input#first_name.transparent.form-control.input-lg(type='text', name='first_name', placeholder='First Name', tabindex='1' value="#{user.firstname}")

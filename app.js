@@ -5,7 +5,8 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var passport = require('passport');
+var flash        = require('connect-flash');
 var multer  = require('multer');
 var Mogodb  = require('./mongodb/connection');
 var US = require('./model/users');
@@ -45,11 +46,10 @@ app.use(multer({ dest: './public/uploads/images',
   }
 }));
 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true
-}));
+app.use(session({secret: 'ilovescotchscotchyscotchscotch'}));// session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(app.router);
 });
 
@@ -100,12 +100,14 @@ var status = false;
 require('./socket/socket')(io, people_status, status);
 require('./routes/login')(app);
 require('./routes/notification')(app);
-require('./routes/register')(app);
+require('./routes/register')(app, passport);
 require('./routes/user')(app);
 require('./routes/project')(app);
 require('./routes/comment')(app);
 require('./routes/note')(app);
 require('./routes/sprint')(app);
+require('./routes/auth')(app);
+require('./config/passport')(passport);
 app.get('/chat', function(req, res){
   res.render('chat');
 });
