@@ -4,11 +4,12 @@ block content
   .body
     .container
       .row.top
-        if errors != "" 
-          .alert.alert-warning.notice(role='errors')
-            button.close(type='button', data-dismiss='alert', aria-label='Close')
-                span(aria-hidden='true') &times; 
-            strong=errors
+        if errors.length > 0
+          -for(var i =0; i < errors.length; i++)
+            .alert.alert-danger.notice(role='errors')
+              button.close(type='button', data-dismiss='alert', aria-label='Close')
+                  span(aria-hidden='true') &times; 
+              strong=errors[i]
         .col-sm-6.header
             | Scrum
             span Team
@@ -26,4 +27,4 @@ block content
               .col-sm-6
                 a.btn.btn-primary(href="/register") Sign up
 block scripts
-
+  script(src='/javascripts/view/alert_view.js')

@@ -1,35 +1,29 @@
 var Mogodb  = require('../mongodb/connection');
 var US = require('../model/users');
 var PJ = require('../model/projects');
+var bcrypt   = require('bcrypt-nodejs');
 var ObjectID = Mogodb.ObjectID;
-module.exports = function(app){
-	app.get('/', function(req, res){
-		if(req.session.user){
-			US.getUser(req.session.user, function(errUser, resUser){
-				PJ.getAllProject(resUser.project_ids, function(errListProject, resListProject){
-					res.render('user/index',{
-						title : "Dashboard",
-						user : resUser,
-						projects : resListProject,
-					});
+module.exports = function(app, auth){
+	app.get('/', auth.isLoggedIn, function(req, res){
+		US.getUser(req.user._id, function(errUser, resUser){
+			PJ.getAllProject(resUser.project_ids, function(errListProject, resListProject){
+				res.render('user/index',{
+					title : "Dashboard",
+					user : resUser,
+					projects : resListProject,
 				});
-			});					
-		}else{
-			res.redirect('/login');
-		}
+			});
+		});					
 	});
 
 	app.get('/logout', function(req, res){
-		US.getUser(req.session.user, function(errUser, resUser){
-			delete req.session.user
-			res.redirect('/');
-		});
+		req.logout();
+    res.redirect('/');
 	});
 
-	app.get('/:username', function(req, res){
-		if(req.session.user){
-			US.getUsername(req.param("username"), function(errUserProfile, resUserProfile){
-				US.getUser(req.session.user, function(errItem, resItem){
+	app.get('/:username',auth.isLoggedIn, function(req, res){
+		US.getUsername(req.param("username"), function(errUserProfile, resUserProfile){
+			US.getUser(req.user._id, function(errItem, resItem){
 				if(resItem){
 					res.render('user/profile',{
 						title : "Profile - " + resItem.firstname,
@@ -43,38 +37,37 @@ module.exports = function(app){
 						title : 'Not Found'
 					});
 				}
-				})
-			});
-		}else{
-			res.redirect('/login');
-		}
+			})
+		});
 	});
 
 	app.post('/:username', function(req, res){
-		US.getUser(req.session.user, function(errItem, resItem){
-			if(req.param('oldpassword') != resItem.password){
-				res.render('user/profile',{
-					title : "Profile - " + resItem.firstname,
-					errors : "Old Password Errors",
-					user : resItem,
-					messages : ""
-				});
-			}else{
-				var document = {
-					password: req.param('newpassword')
-				}
-				US.updateUser(req.session.user, document, function(errItem, resItem){
-					US.getUsername(req.param('username'), function(errUser, resUser){
+		US.getUsername(req.param("username"), function(errUserProfile, resUserProfile){
+			US.getUser(req.user._id, function(errItem, resItem){
+				if(!bcrypt.compareSync(req.param('oldpassword'), resItem.password)){
+					res.render('user/profile',{
+						title : "Profile - " + resItem.firstname,
+						errors : "Old Password Errors",
+						user : resItem,
+						UserProfile : resUserProfile,
+						messages : ""
+					});
+				}else{
+					var document = {
+						password: bcrypt.hashSync(req.param('newpassword'), bcrypt.genSaltSync(8), null),
+					}
+					US.updateUser(req.user._id, document, function(errItemUpdate, resItemUpdate){
 						res.render('user/profile',{
-							title : "Profile - " + resUser.firstname,
+							title : "Profile - " + resItem.firstname,
 							status : true,
 							messages : "Updated Password",
-							user : resUser,
+							user : resItem,
+							UserProfile : resUserProfile,
 							errors : "",
 						});
 					});
-				});
-			}
+				}
+			});
 		});
 	});
 	/*Ajax*/

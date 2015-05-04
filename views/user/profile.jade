@@ -11,7 +11,7 @@ block content
           span(aria-hidden='true') &times; 
       strong=messages
   if errors != ""
-    .alert.alert-warning.notice(role='errors')
+    .alert.alert-danger.notice(role='errors')
       button.close(type='button', data-dismiss='alert', aria-label='Close')
           span(aria-hidden='true') &times; 
       strong=errors
@@ -22,3 +22,4 @@ block script
   script(src='/javascripts/controller/profile_controller.js')
   script(src='/javascripts/view/profile_view.js')
   script(src='/js/socket.io-1.3.4.js')
+  script(src='/javascripts/view/alert_view.js')

@@ -97,16 +97,16 @@ app.post('/uploadphoto',function(req, res){
 var io = require('socket.io')(server);
 var people_status = {};
 var status = false;
+var auth = require('./routes/auth');
 require('./socket/socket')(io, people_status, status);
-require('./routes/login')(app);
+require('./routes/login')(app, passport);
 require('./routes/notification')(app);
 require('./routes/register')(app, passport);
-require('./routes/user')(app);
-require('./routes/project')(app);
+require('./routes/user')(app, auth);
+require('./routes/project')(app, auth);
 require('./routes/comment')(app);
 require('./routes/note')(app);
 require('./routes/sprint')(app);
-require('./routes/auth')(app);
 require('./config/passport')(passport);
 app.get('/chat', function(req, res){
   res.render('chat');

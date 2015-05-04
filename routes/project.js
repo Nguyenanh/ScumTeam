@@ -4,7 +4,7 @@ var PJ = require('../model/projects');
 var NT = require('../model/notes');
 var SP = require('../model/sprints');
 var ObjectID = Mogodb.ObjectID;
-module.exports = function(app){
+module.exports = function(app, auth){
   app.post('/project/new', function(req, res){
     var user_ids = [];
     user_ids.push(new ObjectID(req.body.dataproject.master_id))
@@ -70,7 +70,7 @@ module.exports = function(app){
     });
   });
 
-  app.get('/project/:project_id', function(req, res){
+  app.get('/project/:project_id',auth.isLoggedIn, function(req, res){
     PJ.getProject(req.param('project_id'), function(errProject, resProject){
       var new_date = new Date();
       var date_current = new_date.getFullYear()+"/"+(new_date.getMonth()+1)+"/"+new_date.getDate();
@@ -81,7 +81,7 @@ module.exports = function(app){
           NT.updateMoveNote(req.param('project_id'), sprint_number, function(errNoteMove, resNoteMove){});
         }
         /*-----------end move note---------------------*/
-        US.getUser(req.session.user, function(errUser, resUser){
+        US.getUser(req.user._id, function(errUser, resUser){
           NT.getAllNoteColFirst(resSprint.number, req.param('project_id'), function(errNoteF, resNoteF){
             NT.getAllNoteColSecond(resSprint.number, req.param('project_id'), function(errNoteS, resNoteS){
               NT.getAllNoteColThird(resSprint.number, req.param('project_id'), function(errNoteT, resNoteT){
