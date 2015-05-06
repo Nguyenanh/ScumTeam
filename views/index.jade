@@ -16,6 +16,11 @@ block content
         .col-sm-6.loginform
           form.form-horizontal#login_validate(method="post")
             .form-group
+              .col-sm-2
+                a.btn.btn-primary(href="/auth/facebook")
+                  span.fa.fa-facebook
+                  |Facebook
+            .form-group
               .col-sm-6
                 input#inputusername.form-control(type='username', placeholder='Username', name="username")
             .form-group
@@ -25,6 +30,6 @@ block content
               .col-sm-2
                 button.btn.btn-success(type='submit') Sign in
               .col-sm-6
-                a.btn.btn-primary(href="/register") Sign up
+                a(href="/register" style="color: #fff;") You not hava account
 block scripts
   script(src='/javascripts/view/alert_view.js')

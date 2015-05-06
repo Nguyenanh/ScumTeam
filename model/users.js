@@ -29,6 +29,15 @@ exports.checkAlreadyUser = function(username, callback){
 		}
 	});
 };
+exports.checkAlreadyUserEmail = function(email, callback){
+	users.findOne({email: email}, function(errItem, resItem){
+		if(resItem){
+			callback(null,resItem);
+		}else{
+			callback(null,null);
+		}
+	});
+};
 exports.checkUser = function(username, password, callback){
 	users.findOne({username: username, password: password}, function(errItem, resItem){
 		if(resItem){
