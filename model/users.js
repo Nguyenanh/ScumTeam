@@ -66,6 +66,15 @@ exports.getUsername = function(username, callback){
 		}
 	});
 };
+exports.getEmail = function(email, callback){
+	users.findOne({email: email},  function(errItem, resItem){
+		if(resItem){
+			callback(null, resItem);
+		}else{
+			callback(null, null);
+		}
+	});
+};
 exports.updateUser = function(user_id, document, callback) {
 	users.update({_id: new ObjectID(user_id)}, {$set: document}, function(errItem, resItem){
 		if(resItem){

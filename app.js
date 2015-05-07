@@ -81,8 +81,8 @@ app.post('/uploadphoto',function(req, res){
     var document = {
       avatar : req.files.userPhoto.name
     };
-    US.updateUser(req.session.user, document, function(errItem, resItem){
-      US.getUser(req.session.user, function(errUser, resUser){
+    US.updateUser(req.user._id, document, function(errItem, resItem){
+      US.getUser(req.user._id, function(errUser, resUser){
         var user ={
           status : true,
           resUser: resUser,
