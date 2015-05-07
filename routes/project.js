@@ -4,7 +4,7 @@ var PJ = require('../model/projects');
 var NT = require('../model/notes');
 var SP = require('../model/sprints');
 var ObjectID = Mogodb.ObjectID;
-module.exports = function(app, auth){
+module.exports = function(app, auth, author){
   app.post('/project/new', function(req, res){
     var user_ids = [];
     user_ids.push(new ObjectID(req.body.dataproject.master_id))
@@ -70,12 +70,15 @@ module.exports = function(app, auth){
     });
   });
 
-  app.get('/project/:project_id',auth.isLoggedIn, function(req, res){
+  app.get('/project/:project_id',auth.isLoggedIn, author.authorproject, function(req, res){
     PJ.getProject(req.param('project_id'), function(errProject, resProject){
       var new_date = new Date();
       var date_current = new_date.getFullYear()+"/"+(new_date.getMonth()+1)+"/"+new_date.getDate();
       SP.getNumberSprint(date_current, req.param('project_id'), function(errSprint, resSprint){
         /*-----------move note to next sprint----------*/
+        console.log(req.param('project_id'));
+        console.log(date_current);
+        console.log(resSprint);
         if(resSprint.number > 1){
           var sprint_number = parseInt(resSprint.number - 1);
           NT.updateMoveNote(req.param('project_id'), sprint_number, function(errNoteMove, resNoteMove){});

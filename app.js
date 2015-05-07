@@ -10,6 +10,7 @@ var flash        = require('connect-flash');
 var multer  = require('multer');
 var Mogodb  = require('./mongodb/connection');
 var US = require('./model/users');
+var connect = require('connect');
 
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
@@ -98,12 +99,13 @@ var io = require('socket.io')(server);
 var people_status = {};
 var status = false;
 var auth = require('./routes/auth');
+var author = require('./config/author');
 require('./socket/socket')(io, people_status, status);
 require('./routes/login')(app, passport);
 require('./routes/notification')(app);
 require('./routes/register')(app, passport);
 require('./routes/user')(app, auth);
-require('./routes/project')(app, auth);
+require('./routes/project')(app, auth, author);
 require('./routes/comment')(app);
 require('./routes/note')(app);
 require('./routes/sprint')(app);
