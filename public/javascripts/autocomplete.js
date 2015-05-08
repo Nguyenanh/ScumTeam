@@ -12,7 +12,7 @@ $("#autocomplete").autocomplete({
   source: function(request, response){
     var list_user = [];
     $('#avatar_join li').each(function( index ) {
-      list_user.push($( this ).data('join'));
+      list_user.push($( this ).data('id'));
     });
     var name = $('#autocomplete').val();
     $.ajax({
@@ -59,7 +59,7 @@ $("#autocomplete").autocomplete({
         success : function(data) {
           $('#autocomplete').val('');
           if(user_id_current==project_master_id){
-            $('#avatar_join').append('<div class="user-join"><li class="img-circle avatar_hear" data-join='+data.username+' data-id="'+data._id+'"><img class="size-image" src="/uploads/images/'+data.avatar+'" style="width:50px; height:50px;"/></li><span class="firstname-master">'+data.firstname+'</span><a data-toggle="confirmation" data-singleton="true" data-popout="true" class="remove-user-in-project"><i class="glyphicon glyphicon-remove"></i></a></div>');
+            $('#avatar_join').append('<div class="user-join"><li class="img-circle avatar_hear" data-join='+data.username+' data-id="'+data._id+'"><a href="/'+data._id+'"><img class="size-image" src="/uploads/images/'+data.avatar+'" style="width:50px; height:50px;"/></a></li><span class="firstname-master">'+data.firstname+'</span><a data-toggle="confirmation" data-singleton="true" data-popout="true" class="remove-user-in-project"><i class="glyphicon glyphicon-remove"></i></a></div>');
             $('.remove-user-in-project').confirmation({
               onConfirm: function() {
                 var data_user = {
@@ -70,6 +70,7 @@ $("#autocomplete").autocomplete({
                 var data_noti = {
                   recent_id : data_user.user_id,
                   send_username : user_name_current,
+                  send_id :user_id_current,
                   message : "Remove You into Project",
                   type : {
                     name: "Add project",
@@ -82,12 +83,13 @@ $("#autocomplete").autocomplete({
             /*---- end onConfirm -----*/
             });
           }else{
-            $('#avatar_join').append('<div class="user-join"><li class="img-circle avatar_hear" data-join='+data.username+' data-id="'+data._id+'"><img class="size-image" src="/uploads/images/'+data.avatar+'" style="width:50px; height:50px;"/></li><span class="firstname-master">'+data.firstname+'</span></div>');
+            $('#avatar_join').append('<div class="user-join"><li class="img-circle avatar_hear" data-join='+data.username+' data-id="/'+data._id+'"><a href="'+data._id+'"><img class="size-image" src="/uploads/images/'+data.avatar+'" style="width:50px; height:50px;"/></a></li><span class="firstname-master">'+data.firstname+'</span></div>');
           }
           socket.emit('new_project_room', project_id);
           var data_noti = {
             recent_id : user_id,
             send_username : user_name_current,
+            send_id :user_id_current,
             message : "Invite You into Project",
             type : {
               name: "Add project",
@@ -111,6 +113,7 @@ $("#autocomplete").autocomplete({
       var data_noti = {
         recent_id : data_user.user_id,
         send_username : user_name_current,
+        send_id :user_id_current,
         message : "Remove You into Project",
         type : {
           name: "Remove project",

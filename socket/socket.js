@@ -12,13 +12,12 @@ module.exports = function(io, people_status, status){
       socket.username = username;
       people_status[username] = username;
       status = false;
+      console.log(people_status);
       io.sockets.emit('list_people_online', people_status);
-      console.log(status);
     });
 
     socket.on('disconnect', function(){
       setTimeout(function () {
-        console.log(status);
         if(status) {
           delete people_status[socket.username];
           io.sockets.emit('list_people_online', people_status);
@@ -26,7 +25,6 @@ module.exports = function(io, people_status, status){
       }, 10000);
       io.sockets.emit('list_people_online', people_status);
       status = true;
-      console.log(status);
     });
 
     socket.on('create_new_note', function (data) {
@@ -126,8 +124,8 @@ module.exports = function(io, people_status, status){
             var document_sprint = {
               number : i,
               project_id :new ObjectID(data.project_id),
-              start : start_sprint.getFullYear()+"/"+(start_sprint.getMonth()+1) +"/"+start_sprint.getDate(),
-              end : next_sprint.getFullYear()+"/"+(next_sprint.getMonth()+1)+"/"+next_sprint.getDate(),
+              start : new Date(start_sprint.getFullYear()+"/"+(start_sprint.getMonth()+1) +"/"+start_sprint.getDate()),
+              end : new Date(next_sprint.getFullYear()+"/"+(next_sprint.getMonth()+1)+"/"+next_sprint.getDate()),
             };
             SP.insertSprint(document_sprint, function(errSprint, resSprint){});
             date_sprint = next_sprint;

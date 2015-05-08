@@ -109,7 +109,10 @@ module.exports = function(app, auth){
 	/******************Search User Ajax *************/
 	app.post('/user/ajax_search', function(req, res){
 		var username = String(req.body.username);
-		var user_added = req.body.list_user;
+		var user_added = [];
+		for (var i = 0; i < req.body.list_user.length; i++) {
+			user_added.push(new ObjectID(req.body.list_user[i]));
+		};
 		US.searchAllUsers(username, user_added, function(errUsers, resUsers){
 			res.send(resUsers);
 		});

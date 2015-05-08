@@ -50,8 +50,8 @@ module.exports = function(app, auth, author){
         var document_sprint = {
           number : i,
           project_id :resProject[0]._id,
-          start : start_sprint.getFullYear()+"/"+(start_sprint.getMonth()+1) +"/"+start_sprint.getDate(),
-          end : next_sprint.getFullYear()+"/"+(next_sprint.getMonth()+1)+"/"+next_sprint.getDate(),
+          start : new Date(start_sprint.getFullYear()+"/"+(start_sprint.getMonth()+1) +"/"+start_sprint.getDate()),
+          end : new Date(next_sprint.getFullYear()+"/"+(next_sprint.getMonth()+1)+"/"+next_sprint.getDate()),
         };
         SP.insertSprint(document_sprint, function(errSprint, resSprint){});
         date_sprint = next_sprint;
@@ -99,6 +99,8 @@ module.exports = function(app, auth, author){
                         else {
                           var countpoints = 0;
                         }
+                        resSprint.start = resSprint.start.getFullYear()+"/"+(resSprint.start.getMonth()+1) +"/"+resSprint.start.getDate();
+                        resSprint.end = resSprint.end.getFullYear()+"/"+(resSprint.end.getMonth()+1) +"/"+resSprint.end.getDate()
                         res.render('project/index',{
                           title: resProject.title + "| Scrum",
                           project: resProject,

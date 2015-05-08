@@ -20,7 +20,7 @@ $(document).ready(function(){
           for (var i = 0; i < data.length; i++) {
             var read = data[i].readed == 0 ? "none-read" : ""
             if(data[i].type.name = "Add project"){
-              var tag = '<li class='+read+'><a href="/'+data[i].send_username+'">'+data[i].send_username+'</a><span>'+' '+data[i].message+'</span> '+data[i].type.project_name+'<span class="timeago-noti" data-livestamp="'+data[i].date+'"></span></li>'
+              var tag = '<li class='+read+'><a href="/'+data[i].send_id+'">'+data[i].send_username+'</a><span>'+' '+data[i].message+'</span> '+data[i].type.project_name+'<span class="timeago-noti" data-livestamp="'+data[i].date+'"></span></li>'
               $('.kanban-noti').append(tag);
             }
           };
