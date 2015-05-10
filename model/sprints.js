@@ -31,7 +31,7 @@ exports.removeSprint = function(project_id, callback){
 };
 
 exports.getNumberSprint = function(date_current, project_id, callback){
-  sprints.findOne({start: {$lte : date_current}, end: {$gte: date_current}, project_id : new ObjectID(project_id)},  function(errItem, resItem){
+  sprints.findOne({start: {$lte : new Date(date_current)}, end: {$gte: new Date(date_current)}, project_id : new ObjectID(project_id)},  function(errItem, resItem){
     if(resItem){
       callback(null, resItem);
     }else{

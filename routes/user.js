@@ -21,8 +21,8 @@ module.exports = function(app, auth){
     res.redirect('/');
 	});
 
-	app.get('/:username',auth.isLoggedIn, function(req, res){
-		US.getUsername(req.param("username"), function(errUserProfile, resUserProfile){
+	app.get('/:id',auth.isLoggedIn, function(req, res){
+		US.getUser(req.param("id"), function(errUserProfile, resUserProfile){
 			US.getUser(req.user._id, function(errItem, resItem){
 				if(resItem){
 					res.render('user/profile',{
@@ -41,8 +41,8 @@ module.exports = function(app, auth){
 		});
 	});
 
-	app.post('/:username', function(req, res){
-		US.getUsername(req.param("username"), function(errUserProfile, resUserProfile){
+	app.post('/:id', function(req, res){
+		US.getUser(req.param("id"), function(errUserProfile, resUserProfile){
 			US.getUser(req.user._id, function(errItem, resItem){
 				if(!bcrypt.compareSync(req.param('oldpassword'), resItem.password)){
 					res.render('user/profile',{
@@ -79,7 +79,7 @@ module.exports = function(app, auth){
 		}
 
 		US.updateUser(req.body.dataob.id, document, function(errItem, resItem){
-			US.getUser(req.session.user, function(errUser, resUser){
+			US.getUser(req.user._id, function(errUser, resUser){
 				var user ={
 					status : true,
 					resUser: resUser,
@@ -109,7 +109,10 @@ module.exports = function(app, auth){
 	/******************Search User Ajax *************/
 	app.post('/user/ajax_search', function(req, res){
 		var username = String(req.body.username);
-		var user_added = req.body.list_user;
+		var user_added = [];
+		for (var i = 0; i < req.body.list_user.length; i++) {
+			user_added.push(new ObjectID(req.body.list_user[i]));
+		};
 		US.searchAllUsers(username, user_added, function(errUsers, resUsers){
 			res.send(resUsers);
 		});

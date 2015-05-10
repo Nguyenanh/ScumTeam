@@ -1,6 +1,6 @@
 $(document).ready(function() {
   var socketconnect = new SocketConnect()
   var socket = socketconnect.connect();
-  var user_name = $('input[name=socket_user_username]').val();
+  var user_name = $('input[name=socket_user_id]').val();
   socket.emit('list_people_status', user_name);
 });

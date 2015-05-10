@@ -29,6 +29,15 @@ exports.checkAlreadyUser = function(username, callback){
 		}
 	});
 };
+exports.checkAlreadyUserEmail = function(email, callback){
+	users.findOne({email: email}, function(errItem, resItem){
+		if(resItem){
+			callback(null,resItem);
+		}else{
+			callback(null,null);
+		}
+	});
+};
 exports.checkUser = function(username, password, callback){
 	users.findOne({username: username, password: password}, function(errItem, resItem){
 		if(resItem){
@@ -57,6 +66,15 @@ exports.getUsername = function(username, callback){
 		}
 	});
 };
+exports.getEmail = function(email, callback){
+	users.findOne({email: email},  function(errItem, resItem){
+		if(resItem){
+			callback(null, resItem);
+		}else{
+			callback(null, null);
+		}
+	});
+};
 exports.updateUser = function(user_id, document, callback) {
 	users.update({_id: new ObjectID(user_id)}, {$set: document}, function(errItem, resItem){
 		if(resItem){
@@ -67,7 +85,7 @@ exports.updateUser = function(user_id, document, callback) {
 	});
 };
 exports.searchAllUsers = function(name, user_added, callback){
-	users.find({$and: [{username: new RegExp(name)},{username: {$nin: user_added}}]})
+	users.find({$and: [{username: new RegExp(name)},{_id: {$nin: user_added}}]})
 	.limit(5)
 	.toArray(
 	function(e, res) {

@@ -53,7 +53,7 @@ Note.prototype.Detail = function(note_id) {
       if(data.comments != "") {
         $('#list-comment .comment-item').remove();
         for (var i = 0; i<data.comments.length; i++) {
-          $('#list-comment').append('<div class="comment-item"><img src="/uploads/images/'+data.comments[i].user.avatar+'" style="width:30px; height:30px;" class="img-circle"><a href="/'+data.comments[i].user.username+'"><label class="author">'+data.comments[i].user.username+'</label></a><p class="content">'+data.comments[i].content+'</p><span class="timeago" data-livestamp="'+data.comments[i].created_at+'"></span></div>');
+          $('#list-comment').append('<div class="comment-item"><img src="/uploads/images/'+data.comments[i].user.avatar+'" style="width:30px; height:30px;" class="img-circle"><a href="/'+data.comments[i].user.user_id+'"><label class="author">'+data.comments[i].user.username+'</label></a><p class="content">'+data.comments[i].content+'</p><span class="timeago" data-livestamp="'+data.comments[i].created_at+'"></span></div>');
           // $('#list-comment .comment-item').append('<p class="timeago-comment">'+$.timeago(new Date(data.comments[i].created_at))+'</p>');
         };
       }

@@ -18,4 +18,12 @@ module.exports = function(app, passport){
     failureRedirect : '/login', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
 	}));
+
+	app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+	 
+	app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+        successRedirect : '/',
+        failureRedirect : '/login'
+  }));
 }
