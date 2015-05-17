@@ -40,7 +40,7 @@
   top: 220px;
 }
 .loginform input{
-  background-color: transparent;
+  background-color: #fff;
   border: 1px solid #fff;
 }
 .header span{
@@ -57,7 +57,10 @@
   background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
 #form-register input.transparent {
-  background: transparent;
+    background: #fff;
+    height: 35px;
+}
+#form-register input{
 }
 .error {
   color: #f0776c;
@@ -401,7 +404,7 @@ li.unsortable {
     border-bottom: 1px solid #dedede;
 }
 #form-register .form-group input {
-  color: #fff;
+  color: #000;
 }
 .date-project {
   padding: 17px 0;

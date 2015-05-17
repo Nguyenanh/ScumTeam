@@ -118,3 +118,12 @@ exports.removeProjectUser = function(user_id, project_id, callback) {
     }
   });
 }
+exports.getUserFacebook = function(facebook_id, callback){
+	users.findOne({"facebook.id": facebook_id},  function(errItem, resItem){
+		if(resItem){
+			callback(null, resItem);
+		}else{
+			callback(null, null);
+		}
+	});
+};

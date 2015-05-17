@@ -41,8 +41,8 @@ html
                 li
                   span Not thing
             li.avatar_hear.img-circle
-              if user.avatar == null
-                label=user.firstname
+              if user.provider == 'facebook'
+                img.size-image(alt='Brand', src='#{user.avatar}' style="width:50px; height:50px;")
               else
                 img.size-image(alt='Brand', src='/uploads/images/#{user.avatar}' style="width:50px; height:50px;")
             li.dropdown
