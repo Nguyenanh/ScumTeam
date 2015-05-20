@@ -10,7 +10,7 @@ Note.prototype.Addnote = function(note, socket) {
       $('#new-note-form textarea').val('');
       $('#new-note-form input[name=estimate]').val('');
       var send_data = {
-        note_content : '<li data-id="'+data[0]._id+'" data-owner="'+data[0].owner+'" id="note_detail" class="sortable-item"><p>'+data[0].content+'</p><label>'+data[0].rate+'Point-'+data[0].estimate+'</label><i class="glyphicon glyphicon-time"></i></li>',
+        note_content : '<li data-id="'+data[0]._id+'" data-owner="'+data[0].owner+'" id="note_detail" class="sortable-item"><p>'+data[0].content+'</p><label>'+data[0].rate+'Point:'+data[0].estimate+'</label></li>',
         id_project :$('input[name=idproject]').val(),
       }
       var data_chart = {

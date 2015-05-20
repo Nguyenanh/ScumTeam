@@ -125,8 +125,9 @@ $(document).ready(function() {
   });
   /******* Rename Note*******/
   $('#note-detail-popup').on('click', '#rename_note', function() {
-    $('#note_edit').removeClass("has-error");
     note_id = $('#note-detail-popup input[name=note_id_popup]').val();
+    // note_id_parent = $(this)
+    $('#note_edit').removeClass("has-error");
     note_title = $('#note_edit h4').text();
 
     $('#note_edit textarea').remove();
@@ -240,6 +241,23 @@ $(document).ready(function() {
         note.update_description(data_note, socket);
       }
     });
+
+  });
+  $('#note-detail-popup').on('hide.bs.modal', function() {
+    $('#note_edit textarea').remove();
+    $('#note_edit #save-rename-note').remove();
+    $('#note_edit #cancel-rename-note').remove();
+
+    $('#note_moscow_edit button').remove();
+    $('#note_moscow_edit select').remove();
+
+    $('#note_point_edit button').remove();
+    $('#note_point_edit select').remove();
+
+    $('#note_description_edit button').remove();
+    $('#note_description_edit textarea').remove();
+
+    $('#list-comment .comment-item').remove();
 
   });
   $('#note-detail-popup').on('click', '#add-new-comment', function() {
