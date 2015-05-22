@@ -12,6 +12,7 @@
   background-size: cover;
 /*  -webkit-filter: blur(5px);*/
   z-index: 0;
+  font-family: "helvetica neue",helvetica,arial,sans-serif!important
 }
 .body-register{
   top: -20px;
