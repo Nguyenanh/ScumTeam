@@ -75,12 +75,12 @@ Profile.prototype.Update_password = function(close_alert) {
             close_alert.show();
           $('.user-profile .after-upload label').remove();
           $('.user-profile .after-upload img').remove();
-          $('.user-profile .avatar').append('<img src="/uploads/images/'+data.resUser.avatar+'" style="width:250px; height:250px;" class="img-responsive">');
+          $('.user-profile .avatar').append('<img src="'+data.resUser.avatar+'" style="width:250px; height:250px;" class="img-responsive">');
 
 
           $('#menu-head .avatar_hear label').remove();
           $('#menu-head .avatar_hear img').remove();
-          $('#menu-head .avatar_hear').append('<img src="/uploads/images/'+data.resUser.avatar+'" style="width:50px; height:50px;" class="size-image">')
+          $('#menu-head .avatar_hear').append('<img src="'+data.resUser.avatar+'" style="width:50px; height:50px;" class="size-image">')
         }
     });
   });

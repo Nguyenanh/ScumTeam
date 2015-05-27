@@ -9,6 +9,7 @@ var user = {
 }
 module.exports = function(app, passport) {
 	app.get('/register',function(req, res) {
+		console.log(req.ip)
 		US.getAllUsers(function(errUsers,resUsers) {
 			var user = {
 				firstname :"",

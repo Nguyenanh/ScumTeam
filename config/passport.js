@@ -35,7 +35,7 @@ module.exports = function(passport) {
            username : req.param('username'),
            email : req.param('email'),
            password : bcrypt.hashSync(req.param('password'), bcrypt.genSaltSync(8), null),
-           avatar : "default.jpg",
+           avatar : "http://localhost:3000/uploads/images/default.jpg",
            project_ids :[],
            provider: 'local',
           }
@@ -64,17 +64,18 @@ module.exports = function(passport) {
   }));
   /*-------------------- Login Facebook --------------------*/
    passport.use(new FacebookStrategy({
-
         // pull in our app id and secret from our auth.js file
         clientID        : configAuth.facebookAuth.clientID,
         clientSecret    : configAuth.facebookAuth.clientSecret,
         callbackURL     : configAuth.facebookAuth.callbackURL,
+        enableProof: false,
         profileFields : ['id', 'displayName', 'name', 'gender', 'emails','photos']
 
     },
 
     // facebook will send back the token and profile
     function(token, refreshToken, profile, done) {
+      console.log(profile);
         process.nextTick(function() {
             // find the user in the database based on their facebook id
             US.getUserFacebook(profile.id, function(err, user) {

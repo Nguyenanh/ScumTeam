@@ -10,6 +10,7 @@ var flash        = require('connect-flash');
 var multer  = require('multer');
 var Mogodb  = require('./mongodb/connection');
 var US = require('./model/users');
+var NT = require('./model/notes');
 var connect = require('connect');
 
 var MongoClient = require('mongodb').MongoClient
@@ -79,17 +80,21 @@ app.post('/uploadphoto',function(req, res){
   console.log(done);
   if(done==true){
     var document = {
-      avatar : req.files.userPhoto.name
+      avatar : 'http://localhost:3000/uploads/images/'+req.files.userPhoto.name
     };
     US.updateUser(req.user._id, document, function(errItem, resItem){
       US.getUser(req.user._id, function(errUser, resUser){
-        var user ={
-          status : true,
-          resUser: resUser,
-          massege : "Update Image"
-        }
-        res.send(user);
-        res.end();
+        NT.updateAvatarUser(req.user._id, document.avatar, function(errNote, resNote){
+          console.log(req.user._id);
+          console.log(document.avatar);
+          var user ={
+            status : true,
+            resUser: resUser,
+            massege : "Update Image"
+          }
+          res.send(user);
+          res.end();
+        });
       });
     });
     

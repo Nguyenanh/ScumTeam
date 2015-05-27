@@ -6,5 +6,5 @@ li.sortable-item.unsortable#note_detail(data-id = "#{noteSs[i]._id}" data-owner=
   i.glyphicon.glyphicon-time
   if noteSs[i].assign == "t"
     p#assign
-      img.img-circle(src='/uploads/images/#{noteSs[i].user.avatar}' style="width:20px; height:20px;")
+      img.img-circle(src='#{noteSs[i].user.avatar}' style="width:20px; height:20px;")
       label=noteSs[i].user.username

@@ -10,14 +10,14 @@
                 .user-join
                   li.avatar_hear.img-circle(data-join="#{userAll[i].username}" data-id="#{userAll[i]._id}")
                     a(href="http://localhost:3000/#{userAll[i]._id}")
-                      img.img-circle.size-image(alt='Brand', src='/uploads/images/#{userAll[i].avatar}' style="width:50px; height:50px;")
+                      img.img-circle.size-image(alt='Brand', src='#{userAll[i].avatar}' style="width:50px; height:50px;")
                   span.firstname-master=userAll[i].firstname
                   i.glyphicon.glyphicon-star.icon-master
               else
                 .user-join
                   li.avatar_hear.img-circle(data-join="#{userAll[i].username}" data-id="#{userAll[i]._id}")
                     a(href="http://localhost:3000/#{userAll[i]._id}")
-                      img.img-circle.size-image(alt='Brand', src='/uploads/images/#{userAll[i].avatar}' style="width:50px; height:50px;")
+                      img.img-circle.size-image(alt='Brand', src='#{userAll[i].avatar}' style="width:50px; height:50px;")
                   span.firstname-master=userAll[i].firstname
                   a.remove-user-in-project(data-toggle="confirmation" href="#" data-singleton="true" data-popout="true")
                     i.glyphicon.glyphicon-remove

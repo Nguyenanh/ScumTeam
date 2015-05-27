@@ -5,5 +5,5 @@ li.sortable-item#note_detail(data-id = "#{noteFos[i]._id}" data-owner="#{noteFos
   =noteFos[i].estimate
   if noteFos[i].assign == "t"
     p#assign
-      img.img-circle(src='/uploads/images/#{noteFos[i].user.avatar}' style="width:20px; height:20px;")
+      img.img-circle(src='#{noteFos[i].user.avatar}' style="width:20px; height:20px;")
       label=noteFos[i].user.username

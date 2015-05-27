@@ -44,7 +44,7 @@ html
               if user.provider == 'facebook'
                 img.size-image(alt='Brand', src='#{user.avatar}' style="width:50px; height:50px;")
               else
-                img.size-image(alt='Brand', src='/uploads/images/#{user.avatar}' style="width:50px; height:50px;")
+                img.size-image(alt='Brand', src='#{user.avatar}' style="width:50px; height:50px;")
             li.dropdown
               a.dropdown-toggle#menu-info(href='#', data-toggle='dropdown', role='button', aria-expanded='false')=user.firstname+" "+user.lastname
                 span.caret     

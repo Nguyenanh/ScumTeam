@@ -2,7 +2,7 @@
   .row
     .col-md-4
       .avatar.after-upload
-        img.img-responsive(src='/uploads/images/#{UserProfile.avatar}' style="width:250px; height:250px;") 
+        img.img-responsive(src='#{UserProfile.avatar}' style="width:250px; height:250px;") 
         .choose_file
           span Choose File
             form#uploadForm(enctype= 'multipart/form-data' action ='/uploadphoto' method ='post')

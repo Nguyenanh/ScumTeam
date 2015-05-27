@@ -92,7 +92,7 @@ $(document).ready(function() {
     note.Detail($(this).data('id'));
 
     socket.on(project_id+note_id+'_comment_socket', function (data) {
-      $('#list-comment').append('<div class="comment-item"><img src="/uploads/images/'+data.user.avatar+'" style="width:30px; height:30px;" class="img-circle"><a href="/'+data.user.user_id+'"><label class="author">'+data.user.username+'</label></a><p class="content">'+data.content+'</p><span class="timeago" data-livestamp="'+data.created_at+'"></span></div>');
+      $('#list-comment').append('<div class="comment-item"><img src="'+data.user.avatar+'" style="width:30px; height:30px;" class="img-circle"><a href="/'+data.user.user_id+'"><label class="author">'+data.user.username+'</label></a><p class="content">'+data.content+'</p><span class="timeago" data-livestamp="'+data.created_at+'"></span></div>');
     });
     /*--------------------------*/
     socket.on(project_id+sprint_number+note_id, function (data){
