@@ -16,6 +16,8 @@ $(document).ready(function() {
   var project_id_req = {
     project_id : $('input[name=idproject]').val()
   }
+  var project_comment = $('input[name=idproject]').val();
+  var note_comment = null;
   var project_sprint_current = parseInt($('.project-run input[name=count_sprint_project]').val());
   var socketconnect = new SocketConnect();
   var socket = socketconnect.connect();
@@ -33,6 +35,11 @@ $(document).ready(function() {
     if(data){
       location.replace(location.origin);
     }
+  });
+
+  socket.on(project_comment+'_comment_socket', function (data) {
+    if(data.note_id == note_comment)
+      $('#list-comment').append('<div class="comment-item"><img src="'+data.comment.user.avatar+'" style="width:30px; height:30px;" class="img-circle"><a href="/'+data.comment.user.user_id+'"><label class="author">'+data.comment.user.username+'</label></a><p class="content">'+data.comment.content+'</p><span class="timeago" data-livestamp="'+data.comment.created_at+'"></span></div>');
   });
 
   socket.on(project_id_req.project_id+"_remove_user", function (data){
@@ -88,12 +95,11 @@ $(document).ready(function() {
     var project_id = project_id_req.project_id;
     var sprint_number = $('.project-run input[name=sprint_number]').val();
     var note_id = $(this).data('id');
+    note_comment = note_id;
+    console.log(note_comment);
     $('#note-detail-popup input[name=note_id_popup]').val($(this).data('id'));
     note.Detail($(this).data('id'));
 
-    socket.on(project_id+note_id+'_comment_socket', function (data) {
-      $('#list-comment').append('<div class="comment-item"><img src="'+data.user.avatar+'" style="width:30px; height:30px;" class="img-circle"><a href="/'+data.user.user_id+'"><label class="author">'+data.user.username+'</label></a><p class="content">'+data.content+'</p><span class="timeago" data-livestamp="'+data.created_at+'"></span></div>');
-    });
     /*--------------------------*/
     socket.on(project_id+sprint_number+note_id, function (data){
       $('#note_edit textarea').remove();
@@ -260,6 +266,7 @@ $(document).ready(function() {
     $('#list-comment .comment-item').remove();
 
   });
+
   $('#note-detail-popup').on('click', '#add-new-comment', function() {
     var user_info = {
           user_id : $('body input[name=socket_user_id]').val(),

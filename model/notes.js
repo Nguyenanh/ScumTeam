@@ -102,7 +102,7 @@ exports.updateMoveNote = function(project_id, sprint_number, callback){
   });
 }
 exports.updateAvatarUser = function(user_id, new_url, callback){
-  notes.update({"user.user_id": String(user_id)}, {$set: {"user.avatar": new_url}}, function(errItem, resItem){
+  notes.update({"user.user_id": String(user_id)}, {$set: {"user.avatar": new_url}}, {multi: true}, function(errItem, resItem){
     if(resItem){
       callback(null, resItem);
     }else{

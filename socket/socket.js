@@ -56,7 +56,11 @@ module.exports = function(io, people_status, status){
       var d = new Date();
       data.comment.created_at = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
       CM.insertComment(data.comment, function(errComment, resComment) {
-        io.sockets.emit(data.project_id+data.comment.note_id+'_comment_socket', resComment[0]);
+        var comment = {
+          comment: resComment[0],
+          note_id : data.comment.note_id
+        }
+        io.sockets.emit(data.project_id+'_comment_socket', comment);
       });
     });  
 /*********End New Comment ***********/

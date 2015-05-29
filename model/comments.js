@@ -18,3 +18,12 @@ exports.getAllComment = function (note_id, callback) {
       else callback(null, res)
     });
 }
+exports.updateAvatarUser = function(user_id, new_url, callback){
+  comments.update({"user.user_id": String(user_id)}, {$set: {"user.avatar": new_url}}, {multi: true}, function(errItem, resItem){
+    if(resItem){
+      callback(null, resItem);
+    }else{
+      callback(null, null);
+    }
+  });
+}

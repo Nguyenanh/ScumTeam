@@ -11,8 +11,7 @@ var multer  = require('multer');
 var Mogodb  = require('./mongodb/connection');
 var US = require('./model/users');
 var NT = require('./model/notes');
-var connect = require('connect');
-
+var CM = require('./model/comments');
 var MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 var session = require('express-session');
@@ -85,15 +84,15 @@ app.post('/uploadphoto',function(req, res){
     US.updateUser(req.user._id, document, function(errItem, resItem){
       US.getUser(req.user._id, function(errUser, resUser){
         NT.updateAvatarUser(req.user._id, document.avatar, function(errNote, resNote){
-          console.log(req.user._id);
-          console.log(document.avatar);
-          var user ={
-            status : true,
-            resUser: resUser,
-            massege : "Update Image"
-          }
-          res.send(user);
-          res.end();
+          CM.updateAvatarUser(req.user._id, document.avatar, function(errNote, resNote){
+            var user ={
+              status : true,
+              resUser: resUser,
+              massege : "Update Image"
+            }
+            res.send(user);
+            res.end();
+          });
         });
       });
     });

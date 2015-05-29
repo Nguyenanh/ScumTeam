@@ -4,7 +4,8 @@ var LocalStrategy   = require('passport-local').Strategy,
     Mogodb  = require('../mongodb/connection'),
     US = require('../model/users'),
     bcrypt   = require('bcrypt-nodejs');
-    configAuth = require('./auth');
+var configAuth = require('./auth');
+
 module.exports = function(passport) {
   // used to serialize the user for the session
   passport.serializeUser(function(user, done) {
@@ -21,8 +22,8 @@ module.exports = function(passport) {
     passwordField : 'password',
     passReqToCallback : true
   },
-    function(req, email, password, done) {
-      process.nextTick(function() {
+  function(req, email, password, done) {
+    process.nextTick(function() {
       US.checkAlreadyUserEmail(email, function(err, user) {
         if (err)
           return done(err);
@@ -68,50 +69,47 @@ module.exports = function(passport) {
         clientID        : configAuth.facebookAuth.clientID,
         clientSecret    : configAuth.facebookAuth.clientSecret,
         callbackURL     : configAuth.facebookAuth.callbackURL,
-        enableProof: false,
         profileFields : ['id', 'displayName', 'name', 'gender', 'emails','photos']
-
     },
-
     // facebook will send back the token and profile
     function(token, refreshToken, profile, done) {
+      console.log("anhh");
       console.log(profile);
         process.nextTick(function() {
             // find the user in the database based on their facebook id
-            US.getUserFacebook(profile.id, function(err, user) {
+          US.getUserFacebook(profile.id, function(err, user) {
 
-                if (err)
-                    return done(err);
+              if (err)
+                  return done(err);
 
-                // if the user is found, then log them in
-                if (user) {
-                    return done(null, user); // user found, return that user
-                } else {
-                    // if there is no user found with that facebook id, create them
-                    var document = {
-                      facebook : {
-                        id : profile.id,
-                      },
-                      firstname : profile.name.givenName,
-                      lastname : profile.name.familyName,
-                      email : profile.emails[0].value,
-                      avatar : profile.photos[0].value,
-                      project_ids :[],
-                      provider: 'facebook',
+              // if the user is found, then log them in
+              if (user) {
+                  return done(null, user); // user found, return that user
+              } else {
+                  // if there is no user found with that facebook id, create them
+                  var document = {
+                    facebook : {
+                      id : profile.id,
+                    },
+                    firstname : profile.name.givenName,
+                    lastname : profile.name.familyName,
+                    email : profile.emails[0].value,
+                    avatar : profile.photos[0].value,
+                    project_ids :[],
+                    provider: 'facebook',
 
-                    }
-                    if(profile.username) {
-                      document.username = profile.username;
-                    }else {
-                      document.username = profile.displayName;
-                    }
-                  US.insertUser(document, function(erruser, newUser){
-                    return done(null, newUser[0]);
-                  })
-                }
+                  }
+                  if(profile.username) {
+                    document.username = profile.username;
+                  }else {
+                    document.username = profile.displayName;
+                  }
+                US.insertUser(document, function(erruser, newUser){
+                  return done(null, newUser[0]);
+                })
+              }
 
             });
         });
-
     }));
 }
